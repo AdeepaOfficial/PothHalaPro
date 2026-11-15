@@ -40,6 +40,7 @@ const App = (() => {
     setupModals();
     setupLanguageToggle();
     setupNetworkSyncListeners();
+    setupThemeSwitcher();
 
     // Initialize Child Modules
     if (window.LicenseManager) LicenseManager.init();
@@ -340,6 +341,38 @@ const App = (() => {
   }
 
   // -------------------------------------------------------------
+  // THEME SWITCHER CONTROLLER
+  // -------------------------------------------------------------
+  function setTheme(themeKey) {
+    if (!themeKey) return;
+    document.documentElement.setAttribute('data-theme', themeKey);
+    document.body.className = `theme-${themeKey}`;
+    try {
+      localStorage.setItem('pothhalapro_theme', themeKey);
+    } catch (e) {
+      console.warn('Could not save theme preference:', e);
+    }
+    const select = document.getElementById('theme-selector');
+    if (select && select.value !== themeKey) {
+      select.value = themeKey;
+    }
+  }
+
+  function setupThemeSwitcher() {
+    const savedTheme = localStorage.getItem('pothhalapro_theme') || 'cyber-neon';
+    setTheme(savedTheme);
+
+    const selector = document.getElementById('theme-selector');
+    if (selector) {
+      selector.value = savedTheme;
+      selector.addEventListener('change', (e) => {
+        setTheme(e.target.value);
+        showToast(`Theme switched to: ${selector.options[selector.selectedIndex].text}`, 'info');
+      });
+    }
+  }
+
+  // -------------------------------------------------------------
   // TOAST NOTIFICATIONS
   // -------------------------------------------------------------
   function showToast(message, type = 'info') {
@@ -364,7 +397,8 @@ const App = (() => {
     switchView,
     showModal,
     closeAllModals,
-    showToast
+    showToast,
+    setTheme
   };
 })();
 

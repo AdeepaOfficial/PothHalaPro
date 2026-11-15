@@ -1,0 +1,756 @@
+/* ==========================================================================
+   PothHalaPro - Themes & Color Systems Engine
+   Stylesheets for Seamless Theme Switching & School Template System
+   
+   Themes Implemented:
+     1. Cyber Neon Kids    ([data-theme="cyber-neon"], .theme-cyber-neon)
+     2. Royal College Gold ([data-theme="royal-gold"], .theme-royal-gold)
+     3. Kawaii Pink & Lilac ([data-theme="kawaii-pink"], .theme-kawaii-pink)
+     4. Turbo Hero Orange  ([data-theme="turbo-hero"], [data-theme="turbo-orange"], .theme-turbo-hero, .theme-turbo-orange)
+     Plus PRO themes: Galactic Explorer & Vintage Parchment
+   ========================================================================== */
+
+/* -------------------------------------------------------------
+   DEFAULT / ROOT DESIGN TOKENS
+   ------------------------------------------------------------- */
+:root {
+  --theme-transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  
+  /* Active Theme Identifier */
+  --theme-name: "Default Modern";
+
+  /* Brand Palette */
+  --primary: #2563EB;
+  --primary-hover: #1D4ED8;
+  --primary-active: #1E40AF;
+  --primary-light: #EFF6FF;
+  --primary-gradient: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%);
+  --secondary: #475569;
+  --secondary-hover: #334155;
+  --secondary-light: #F1F5F9;
+  --accent: #F59E0B;
+  --accent-light: #FEF3C7;
+  --accent-glow: rgba(245, 158, 11, 0.35);
+
+  /* Workspace Surfaces */
+  --bg-main: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FFFFFF;
+  --bg-surface-subtle: #F1F5F9;
+  --bg-sidebar: #0F172A;
+  --sidebar-hover: #1E293B;
+  --sidebar-active: #2563EB;
+  --sidebar-text: #F8FAFC;
+  --sidebar-text-muted: #94A3B8;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+
+  /* Typography */
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-subtle: #94A3B8;
+  --text-inverse: #FFFFFF;
+  --text-accent: #2563EB;
+
+  /* Borders & Dividers */
+  --border-color: #E2E8F0;
+  --border-subtle: #F1F5F9;
+  --border-focus: #2563EB;
+  --border-accent: #3B82F6;
+
+  /* Elevation & Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --theme-glow: 0 0 12px rgba(37, 99, 235, 0.25);
+
+  /* Sticker Studio Tokens */
+  --sticker-bg: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%);
+  --sticker-text: #FFFFFF;
+  --sticker-subtext: #38BDF8;
+  --sticker-accent: #4ADE80;
+  --sticker-border: 2px solid #38BDF8;
+  --sticker-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Sinhala", sans-serif;
+  --sticker-pill-bg: rgba(255, 255, 255, 0.18);
+
+  /* Counter POS Tokens */
+  --pos-card-bg: #FFFFFF;
+  --pos-card-border: #E2E8F0;
+  --pos-card-hover: #EFF6FF;
+  --pos-active-tab: #2563EB;
+  --pos-key-bg: #F8FAFC;
+}
+
+/* ==========================================================================
+   THEME 1: CYBER NEON KIDS (Futuristic High-Tech Neon Playground)
+   Dark cyber matrix, electric cyan, vibrant lime, cyber violet, radiant glows.
+   ========================================================================== */
+:root[data-theme="cyber-neon"],
+body.theme-cyber-neon {
+  --theme-name: "Cyber Neon Kids";
+
+  /* Brand Palette */
+  --primary: #00F0FF;
+  --primary-hover: #38BDF8;
+  --primary-active: #0284C7;
+  --primary-light: rgba(0, 240, 255, 0.12);
+  --primary-gradient: linear-gradient(135deg, #00F0FF 0%, #7C3AED 100%);
+  --secondary: #A855F7;
+  --secondary-hover: #9333EA;
+  --secondary-light: rgba(168, 85, 247, 0.15);
+  --accent: #39FF14;
+  --accent-light: rgba(57, 255, 20, 0.15);
+  --accent-glow: 0 0 16px rgba(57, 255, 20, 0.5);
+
+  /* Surfaces: Sleek Obsidian & Deep Cyber Navy */
+  --bg-main: #0B0F19;
+  --bg-surface: #111827;
+  --bg-surface-elevated: #1F2937;
+  --bg-surface-subtle: #1E293B;
+  --bg-sidebar: #030712;
+  --sidebar-hover: #111827;
+  --sidebar-active: #00F0FF;
+  --sidebar-text: #F8FAFC;
+  --sidebar-text-muted: #94A3B8;
+  --sidebar-border: rgba(0, 240, 255, 0.18);
+
+  /* Typography */
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --text-subtle: #64748B;
+  --text-inverse: #030712;
+  --text-accent: #00F0FF;
+
+  /* Borders & Dividers */
+  --border-color: #1E293B;
+  --border-subtle: #162032;
+  --border-focus: #00F0FF;
+  --border-accent: #38BDF8;
+
+  /* Shadows & Radiant Neon Glows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.6), 0 0 8px rgba(0, 240, 255, 0.15);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 240, 255, 0.25);
+  --theme-glow: 0 0 14px rgba(0, 240, 255, 0.45);
+
+  /* Sticker Studio Tokens */
+  --sticker-bg: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #030712 100%);
+  --sticker-text: #FFFFFF;
+  --sticker-subtext: #38BDF8;
+  --sticker-accent: #4ADE80;
+  --sticker-border: 2px solid #38BDF8;
+  --sticker-font: 'Segoe UI', system-ui, sans-serif;
+  --sticker-pill-bg: rgba(0, 240, 255, 0.18);
+
+  /* Counter POS Tokens */
+  --pos-card-bg: #111827;
+  --pos-card-border: #1E293B;
+  --pos-card-hover: rgba(0, 240, 255, 0.1);
+  --pos-active-tab: #00F0FF;
+  --pos-key-bg: #1F2937;
+}
+
+/* ==========================================================================
+   THEME 2: ROYAL COLLEGE GOLD (Imperial Scholastic Prestige)
+   Deep collegiate maroon/crimson, burnished gold, ivory parchment, ornate class.
+   ========================================================================== */
+:root[data-theme="royal-gold"],
+body.theme-royal-gold {
+  --theme-name: "Royal College Gold";
+
+  /* Brand Palette */
+  --primary: #B45309;
+  --primary-hover: #92400E;
+  --primary-active: #78350F;
+  --primary-light: #FEF3C7;
+  --primary-gradient: linear-gradient(135deg, #78350F 0%, #D97706 50%, #B45309 100%);
+  --secondary: #450A0A;
+  --secondary-hover: #581C1C;
+  --secondary-light: #FEE2E2;
+  --accent: #FACC15;
+  --accent-light: #FEF9C3;
+  --accent-glow: 0 0 16px rgba(234, 179, 8, 0.45);
+
+  /* Surfaces: Warm Antique Ivory & Rich Mahogany */
+  --bg-main: #FAF5EF;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FFFDF9;
+  --bg-surface-subtle: #F5EFE6;
+  --bg-sidebar: #450A0A;
+  --sidebar-hover: #581C1C;
+  --sidebar-active: #EAB308;
+  --sidebar-text: #FEF08A;
+  --sidebar-text-muted: #FCD34D;
+  --sidebar-border: rgba(234, 179, 8, 0.25);
+
+  /* Typography */
+  --text-main: #451A03;
+  --text-muted: #78350F;
+  --text-subtle: #92400E;
+  --text-inverse: #FFFFFF;
+  --text-accent: #B45309;
+
+  /* Borders & Dividers */
+  --border-color: #E7DAC7;
+  --border-subtle: #F3EBDD;
+  --border-focus: #D97706;
+  --border-accent: #EAB308;
+
+  /* Elevation & Ornate Shadows */
+  --shadow-sm: 0 1px 3px rgba(69, 10, 10, 0.08);
+  --shadow-md: 0 4px 8px -1px rgba(69, 10, 10, 0.12), 0 2px 4px rgba(234, 179, 8, 0.08);
+  --shadow-lg: 0 10px 20px -3px rgba(69, 10, 10, 0.18), 0 0 12px rgba(234, 179, 8, 0.15);
+  --theme-glow: 0 0 14px rgba(234, 179, 8, 0.35);
+
+  /* Sticker Studio Tokens */
+  --sticker-bg: linear-gradient(135deg, #450A0A 0%, #78350F 50%, #360606 100%);
+  --sticker-text: #FEF08A;
+  --sticker-subtext: #FDE047;
+  --sticker-accent: #FACC15;
+  --sticker-border: 2px solid #EAB308;
+  --sticker-font: 'Georgia', 'Times New Roman', serif;
+  --sticker-pill-bg: rgba(234, 179, 8, 0.22);
+
+  /* Counter POS Tokens */
+  --pos-card-bg: #FFFFFF;
+  --pos-card-border: #E7DAC7;
+  --pos-card-hover: #FEF3C7;
+  --pos-active-tab: #B45309;
+  --pos-key-bg: #FAF5EF;
+}
+
+/* ==========================================================================
+   THEME 3: KAWAII PINK & LILAC (Sweet Pastel Candy & Creative Wonder)
+   Soft strawberry blush, blossom pink, pastel lilac, candy magenta accents.
+   ========================================================================== */
+:root[data-theme="kawaii-pink"],
+body.theme-kawaii-pink {
+  --theme-name: "Kawaii Pink & Lilac";
+
+  /* Brand Palette */
+  --primary: #EC4899;
+  --primary-hover: #DB2777;
+  --primary-active: #BE185D;
+  --primary-light: #FCE7F3;
+  --primary-gradient: linear-gradient(135deg, #EC4899 0%, #C084FC 100%);
+  --secondary: #A855F7;
+  --secondary-hover: #9333EA;
+  --secondary-light: #F3E8FF;
+  --accent: #F472B6;
+  --accent-light: #FDF2F8;
+  --accent-glow: 0 0 16px rgba(236, 72, 153, 0.38);
+
+  /* Surfaces: Soft Blush Blossom & Cream */
+  --bg-main: #FFF5F7;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FFF9FA;
+  --bg-surface-subtle: #FDF2F8;
+  --bg-sidebar: #500724;
+  --sidebar-hover: #701A75;
+  --sidebar-active: #F472B6;
+  --sidebar-text: #FDF2F8;
+  --sidebar-text-muted: #F9A8D4;
+  --sidebar-border: rgba(244, 114, 182, 0.22);
+
+  /* Typography */
+  --text-main: #4A044E;
+  --text-muted: #831843;
+  --text-subtle: #9D174D;
+  --text-inverse: #FFFFFF;
+  --text-accent: #DB2777;
+
+  /* Borders & Dividers */
+  --border-color: #FCE7F3;
+  --border-subtle: #FDF2F8;
+  --border-focus: #EC4899;
+  --border-accent: #F472B6;
+
+  /* Elevation & Pillowy Soft Shadows */
+  --shadow-sm: 0 1px 3px rgba(236, 72, 153, 0.08);
+  --shadow-md: 0 6px 12px -2px rgba(236, 72, 153, 0.12), 0 3px 6px -2px rgba(168, 85, 247, 0.08);
+  --shadow-lg: 0 12px 24px -4px rgba(236, 72, 153, 0.18), 0 4px 10px rgba(244, 114, 182, 0.15);
+  --theme-glow: 0 0 14px rgba(236, 72, 153, 0.35);
+
+  /* Sticker Studio Tokens */
+  --sticker-bg: linear-gradient(135deg, #FDF2F8 0%, #FCE7F3 50%, #F3E8FF 100%);
+  --sticker-text: #831843;
+  --sticker-subtext: #DB2777;
+  --sticker-accent: #F472B6;
+  --sticker-border: 2px solid #F472B6;
+  --sticker-font: 'Segoe UI', system-ui, sans-serif;
+  --sticker-pill-bg: rgba(244, 114, 182, 0.22);
+
+  /* Counter POS Tokens */
+  --pos-card-bg: #FFFFFF;
+  --pos-card-border: #FCE7F3;
+  --pos-card-hover: #FFF1F2;
+  --pos-active-tab: #EC4899;
+  --pos-key-bg: #FFF5F7;
+}
+
+/* ==========================================================================
+   THEME 4: TURBO HERO ORANGE (High-Octane Racing & Action Superhero)
+   Blazing turbo orange, carbon charcoal, motorsport amber, high-contrast vitality.
+   ========================================================================== */
+:root[data-theme="turbo-hero"],
+:root[data-theme="turbo-orange"],
+body.theme-turbo-hero,
+body.theme-turbo-orange {
+  --theme-name: "Turbo Hero Orange";
+
+  /* Brand Palette */
+  --primary: #EA580C;
+  --primary-hover: #C2410C;
+  --primary-active: #9A3412;
+  --primary-light: #FFEDD5;
+  --primary-gradient: linear-gradient(135deg, #EA580C 0%, #F97316 50%, #FACC15 100%);
+  --secondary: #1C1917;
+  --secondary-hover: #292524;
+  --secondary-light: #F5F5F4;
+  --accent: #FACC15;
+  --accent-light: #FEF9C3;
+  --accent-glow: 0 0 16px rgba(249, 115, 22, 0.45);
+
+  /* Surfaces: Dynamic Warm Ivory & Carbon Asphalt */
+  --bg-main: #FFF8F1;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FFFBF7;
+  --bg-surface-subtle: #FFEDD5;
+  --bg-sidebar: #18181B;
+  --sidebar-hover: #27272A;
+  --sidebar-active: #EA580C;
+  --sidebar-text: #FAFAFA;
+  --sidebar-text-muted: #A1A1AA;
+  --sidebar-border: rgba(249, 115, 22, 0.22);
+
+  /* Typography */
+  --text-main: #292524;
+  --text-muted: #78716C;
+  --text-subtle: #A8A29E;
+  --text-inverse: #FFFFFF;
+  --text-accent: #EA580C;
+
+  /* Borders & Dividers */
+  --border-color: #FED7AA;
+  --border-subtle: #FFEDD5;
+  --border-focus: #EA580C;
+  --border-accent: #F97316;
+
+  /* Elevation & Energetic Shadows */
+  --shadow-sm: 0 1px 3px rgba(234, 88, 12, 0.08);
+  --shadow-md: 0 4px 8px -1px rgba(234, 88, 12, 0.12), 0 2px 4px -2px rgba(28, 25, 23, 0.08);
+  --shadow-lg: 0 12px 20px -3px rgba(234, 88, 12, 0.18), 0 4px 8px rgba(249, 115, 22, 0.15);
+  --theme-glow: 0 0 14px rgba(234, 88, 12, 0.35);
+
+  /* Sticker Studio Tokens */
+  --sticker-bg: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 50%, #FED7AA 100%);
+  --sticker-text: #7C2D12;
+  --sticker-subtext: #C2410C;
+  --sticker-accent: #EA580C;
+  --sticker-border: 2px solid #F97316;
+  --sticker-font: 'Segoe UI', system-ui, sans-serif;
+  --sticker-pill-bg: rgba(234, 88, 12, 0.18);
+
+  /* Counter POS Tokens */
+  --pos-card-bg: #FFFFFF;
+  --pos-card-border: #FED7AA;
+  --pos-card-hover: #FFF7ED;
+  --pos-active-tab: #EA580C;
+  --pos-key-bg: #FFF8F1;
+}
+
+/* ==========================================================================
+   THEME APPLICATION & UI COMPONENT OVERRIDES
+   Ensures variables propagate to all UI elements seamlessly.
+   ========================================================================== */
+
+/* Universal Transitions for Smooth Theme Morphing */
+body,
+#app-sidebar,
+#app-header,
+.controls-card,
+.preview-panel,
+.view-container,
+.nav-item,
+.btn-preset,
+.btn-slot-tool,
+.btn-print-action,
+.form-control,
+.modal-content,
+.item-card,
+.pos-key-btn,
+.receipt-card {
+  transition: var(--theme-transition);
+}
+
+/* Base Body Application */
+body {
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+}
+
+/* Sidebar Application */
+#app-sidebar {
+  background-color: var(--bg-sidebar) !important;
+  color: var(--sidebar-text) !important;
+  border-right: 1px solid var(--sidebar-border) !important;
+}
+
+#app-sidebar .sidebar-header {
+  border-bottom: 1px solid var(--sidebar-border) !important;
+}
+
+#app-sidebar .nav-section-title {
+  color: var(--sidebar-text-muted) !important;
+}
+
+#app-sidebar .nav-item {
+  color: var(--sidebar-text) !important;
+}
+
+#app-sidebar .nav-item:hover {
+  background-color: var(--sidebar-hover) !important;
+}
+
+#app-sidebar .nav-item.active {
+  background: var(--primary-gradient) !important;
+  color: var(--text-inverse) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Header Application */
+#app-header {
+  background-color: var(--bg-surface) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.btn-quick-search {
+  background-color: var(--bg-surface-subtle) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-muted) !important;
+}
+
+.btn-quick-search:hover {
+  border-color: var(--border-focus) !important;
+  color: var(--text-main) !important;
+}
+
+/* Primary Action Buttons */
+.btn-print-action,
+.btn-primary-action {
+  background: var(--primary-gradient) !important;
+  color: var(--text-inverse) !important;
+  border: none !important;
+  box-shadow: var(--shadow-md), var(--theme-glow) !important;
+}
+
+.btn-print-action:hover,
+.btn-primary-action:hover {
+  filter: brightness(1.08) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Controls & Cards */
+.controls-card,
+.preview-panel,
+.settings-card,
+.summary-card,
+.counter-pos-container {
+  background-color: var(--bg-surface) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-sm) !important;
+  color: var(--text-main) !important;
+}
+
+.controls-section {
+  border-bottom: 1px solid var(--border-subtle) !important;
+}
+
+.section-label {
+  color: var(--text-muted) !important;
+  font-weight: 700 !important;
+}
+
+/* Form Controls & Inputs */
+.form-control,
+input[type="text"],
+input[type="number"],
+input[type="search"],
+select.form-control {
+  background-color: var(--bg-surface) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+
+.form-control:focus,
+input:focus,
+select:focus {
+  border-color: var(--border-focus) !important;
+  box-shadow: 0 0 0 3px var(--primary-light) !important;
+  outline: none !important;
+}
+
+/* Slot Tools & Presets */
+.btn-slot-tool {
+  background-color: var(--bg-surface-subtle) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+
+.btn-slot-tool:hover {
+  background-color: var(--primary-light) !important;
+  border-color: var(--primary) !important;
+  color: var(--primary) !important;
+}
+
+.btn-slot-tool.active {
+  background: var(--primary-gradient) !important;
+  color: var(--text-inverse) !important;
+  border-color: transparent !important;
+}
+
+.btn-preset {
+  background-color: var(--bg-surface) !important;
+  border: 1.5px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+
+.btn-preset:hover {
+  border-color: var(--border-focus) !important;
+  background-color: var(--primary-light) !important;
+}
+
+.btn-preset.active {
+  border-color: var(--primary) !important;
+  background-color: var(--primary-light) !important;
+  box-shadow: 0 0 0 1px var(--primary) !important;
+}
+
+.btn-preset.active .preset-title {
+  color: var(--primary) !important;
+  font-weight: 800 !important;
+}
+
+/* Upload Slots */
+.upload-slot {
+  background-color: var(--bg-surface-subtle) !important;
+  border: 2px dashed var(--border-color) !important;
+  color: var(--text-muted) !important;
+}
+
+.upload-slot:hover {
+  border-color: var(--border-focus) !important;
+  background-color: var(--primary-light) !important;
+}
+
+/* Modal Dialogs */
+.modal-content {
+  background-color: var(--bg-surface) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-color) !important;
+}
+
+/* Counter POS Kiosk Specifics */
+.item-card {
+  background-color: var(--pos-card-bg) !important;
+  border: 1.5px solid var(--pos-card-border) !important;
+  color: var(--text-main) !important;
+}
+
+.item-card:hover {
+  background-color: var(--pos-card-hover) !important;
+  border-color: var(--border-focus) !important;
+}
+
+.pos-tab.active {
+  background: var(--primary-gradient) !important;
+  color: var(--text-inverse) !important;
+}
+
+.pos-key-btn {
+  background-color: var(--pos-key-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+
+.pos-key-btn:hover {
+  background-color: var(--primary-light) !important;
+  color: var(--primary) !important;
+}
+
+/* -------------------------------------------------------------
+   STICKER STUDIO DEDICATED TEMPLATE CLASSES
+   Works both with global theme switching and per-sticker templates
+   ------------------------------------------------------------- */
+.template-cyber-neon {
+  background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #030712 100%) !important;
+  color: #FFFFFF !important;
+  border: 2px solid #38BDF8 !important;
+  font-family: 'Segoe UI', system-ui, sans-serif !important;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.3) !important;
+}
+
+.template-cyber-neon .sticker-subtext {
+  color: #38BDF8 !important;
+}
+
+.template-cyber-neon .sticker-accent {
+  color: #4ADE80 !important;
+}
+
+.template-cyber-neon .sticker-pill {
+  background: rgba(0, 240, 255, 0.18) !important;
+  color: #4ADE80 !important;
+  border: 0.5px solid #4ADE80 !important;
+}
+
+.template-royal-gold {
+  background: linear-gradient(135deg, #450A0A 0%, #78350F 50%, #360606 100%) !important;
+  color: #FEF08A !important;
+  border: 2px solid #EAB308 !important;
+  font-family: 'Georgia', 'Times New Roman', serif !important;
+  box-shadow: 0 4px 10px rgba(69, 10, 10, 0.3) !important;
+}
+
+.template-royal-gold .sticker-subtext {
+  color: #FDE047 !important;
+}
+
+.template-royal-gold .sticker-accent {
+  color: #FACC15 !important;
+}
+
+.template-royal-gold .sticker-pill {
+  background: rgba(234, 179, 8, 0.25) !important;
+  color: #FEF08A !important;
+  border: 0.5px solid #EAB308 !important;
+}
+
+.template-kawaii-pink {
+  background: linear-gradient(135deg, #FDF2F8 0%, #FCE7F3 50%, #F3E8FF 100%) !important;
+  color: #831843 !important;
+  border: 2px solid #F472B6 !important;
+  font-family: 'Segoe UI', system-ui, sans-serif !important;
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.15) !important;
+}
+
+.template-kawaii-pink .sticker-subtext {
+  color: #DB2777 !important;
+}
+
+.template-kawaii-pink .sticker-accent {
+  color: #F472B6 !important;
+}
+
+.template-kawaii-pink .sticker-pill {
+  background: rgba(244, 114, 182, 0.2) !important;
+  color: #9D174D !important;
+  border: 0.5px solid #F472B6 !important;
+}
+
+.template-turbo-orange,
+.template-turbo-hero {
+  background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 50%, #FED7AA 100%) !important;
+  color: #7C2D12 !important;
+  border: 2px solid #F97316 !important;
+  font-family: 'Segoe UI', system-ui, sans-serif !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15) !important;
+}
+
+.template-turbo-orange .sticker-subtext,
+.template-turbo-hero .sticker-subtext {
+  color: #C2410C !important;
+}
+
+.template-turbo-orange .sticker-accent,
+.template-turbo-hero .sticker-accent {
+  color: #EA580C !important;
+}
+
+.template-turbo-orange .sticker-pill,
+.template-turbo-hero .sticker-pill {
+  background: rgba(234, 88, 12, 0.2) !important;
+  color: #9A3412 !important;
+  border: 0.5px solid #EA580C !important;
+}
+
+/* PRO Template: Galactic Explorer */
+.template-galactic-pro {
+  background: linear-gradient(135deg, #020617 0%, #1E293B 100%) !important;
+  color: #F8FAFC !important;
+  border: 2px solid #818CF8 !important;
+  box-shadow: 0 0 12px rgba(129, 140, 248, 0.3) !important;
+}
+
+.template-galactic-pro .sticker-subtext {
+  color: #818CF8 !important;
+}
+
+.template-galactic-pro .sticker-accent {
+  color: #C084FC !important;
+}
+
+/* PRO Template: Vintage Parchment */
+.template-vintage-pro {
+  background: linear-gradient(135deg, #FEFCE8 0%, #FEF9C3 100%) !important;
+  color: #422006 !important;
+  border: 2px dashed #CA8A04 !important;
+  font-family: 'Georgia', serif !important;
+}
+
+.template-vintage-pro .sticker-subtext {
+  color: #713F12 !important;
+}
+
+.template-vintage-pro .sticker-accent {
+  color: #A16207 !important;
+}
+
+/* -------------------------------------------------------------
+   THEME SWITCHER HEADER CONTROL
+   Integrated UI widget for one-click theme changing
+   ------------------------------------------------------------- */
+.theme-switcher-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-color);
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.theme-switcher-label {
+  font-weight: 700;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.theme-select-dropdown {
+  background: transparent;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  outline: none;
+  padding: 2px 4px;
+}
+
+.theme-select-dropdown option {
+  background: var(--bg-surface);
+  color: var(--text-main);
+}
