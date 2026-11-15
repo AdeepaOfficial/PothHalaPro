@@ -1,0 +1,16 @@
+{
+  "name": "PothHalaPro Print Studio",
+  "short_name": "PothHalaPro",
+  "description": "All-in-One Bookshop, Communication & Education Print Studio for Sri Lanka",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#2563EB",
+  "icons": [
+    {
+      "src": "./assets/cartoons/scholar.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

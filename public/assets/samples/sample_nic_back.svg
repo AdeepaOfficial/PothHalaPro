@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 540" width="856" height="540">
+  <!-- Card Background -->
+  <rect x="0" y="0" width="856" height="540" rx="30" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="4"/>
+  <!-- Guilloche Pattern -->
+  <path d="M 0,150 Q 428,250 856,150" stroke="#E2E8F0" stroke-width="3" fill="none"/>
+  <path d="M 0,350 Q 428,250 856,350" stroke="#E2E8F0" stroke-width="3" fill="none"/>
+
+  <!-- Barcode Area -->
+  <g transform="translate(60, 40)">
+    <rect x="0" y="0" width="736" height="60" fill="#0F172A"/>
+    <!-- Mock 2D barcode pattern -->
+    <rect x="10" y="8" width="716" height="44" fill="#FFFFFF"/>
+    <text x="368" y="38" font-family="'Segoe UI', monospace" font-size="20" font-weight="bold" fill="#0F172A" text-anchor="middle" letter-spacing="12">||| | |||| || ||| ||||| |||| ||| ||</text>
+  </g>
+
+  <!-- Address Info -->
+  <text x="60" y="150" font-family="'Segoe UI', Arial" font-size="16" fill="#64748B">ලිපිනය / Address:</text>
+  <text x="60" y="185" font-family="'Noto Sans Sinhala', 'Segoe UI', Arial" font-size="19" font-weight="600" fill="#1E293B">නො. 45/2, රජමහා විහාර පාර, කෝට්ටේ</text>
+  <text x="60" y="215" font-family="'Segoe UI', Arial" font-size="18" fill="#334155">No. 45/2, Raja Maha Vihara Road, Kotte</text>
+
+  <text x="60" y="270" font-family="'Segoe UI', Arial" font-size="16" fill="#64748B">නිකුත් කළ දිනය / Date of Issue:</text>
+  <text x="60" y="300" font-family="'Segoe UI', Arial" font-size="19" font-weight="bold" fill="#1E293B">2018.10.15</text>
+
+  <!-- Signature line -->
+  <g transform="translate(520, 240)">
+    <text x="0" y="0" font-family="'Segoe UI', Arial" font-size="16" fill="#64748B">කොමසාරිස් ජනරාල් අත්සන / Signature:</text>
+    <path d="M 20,40 Q 60,10 100,50 T 180,25 T 240,40" stroke="#1E3A8A" stroke-width="2.5" fill="none"/>
+    <line x1="10" y1="55" x2="260" y2="55" stroke="#94A3B8" stroke-width="1.5"/>
+  </g>
+
+  <!-- Machine Readable Zone (MRZ) -->
+  <rect x="40" y="380" width="776" height="110" rx="8" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="60" y="425" font-family="'Courier New', monospace" font-size="24" font-weight="bold" fill="#334155" letter-spacing="4">IDLKA200125409823<<<<<<<<<<<<<<</text>
+  <text x="60" y="465" font-family="'Courier New', monospace" font-size="24" font-weight="bold" fill="#334155" letter-spacing="4">0109115M2810158LKA<<<<<<<<<<<<<6</text>
+
+  <!-- Watermark -->
+  <text x="428" y="270" font-family="'Segoe UI', Arial" font-size="70" font-weight="900" fill="#EF4444" opacity="0.15" text-anchor="middle" transform="rotate(-15 428 270)">SPECIMEN</text>
+</svg>

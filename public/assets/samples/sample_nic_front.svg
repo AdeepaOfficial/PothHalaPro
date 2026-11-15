@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 540" width="856" height="540">
+  <defs>
+    <linearGradient id="nicBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0F2FE"/>
+      <stop offset="50%" stop-color="#F0FDF4"/>
+      <stop offset="100%" stop-color="#FEF3C7"/>
+    </linearGradient>
+  </defs>
+  <!-- Card Background -->
+  <rect x="0" y="0" width="856" height="540" rx="30" fill="url(#nicBg)" stroke="#CBD5E1" stroke-width="4"/>
+  <!-- Guilloche Security Pattern Lines -->
+  <path d="M 0,100 Q 200,50 400,120 T 856,80" stroke="#BAE6FD" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M 0,250 Q 300,180 500,280 T 856,220" stroke="#BBF7D0" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M 0,420 Q 250,480 600,380 T 856,460" stroke="#FDE68A" stroke-width="2" fill="none" opacity="0.6"/>
+
+  <!-- Header -->
+  <text x="280" y="55" font-family="'Noto Sans Sinhala', 'Segoe UI', Arial" font-size="22" font-weight="bold" fill="#0369A1">ශ්‍රී ලංකා ජාතික හැඳුනුම්පත</text>
+  <text x="280" y="82" font-family="'Segoe UI', Arial" font-size="16" font-weight="600" fill="#0284C7">NATIONAL IDENTITY CARD - SRI LANKA</text>
+  
+  <!-- Smart Chip Graphic -->
+  <rect x="70" y="160" width="110" height="90" rx="8" fill="#FBBF24" stroke="#D97706" stroke-width="2"/>
+  <line x1="70" y1="205" x2="180" y2="205" stroke="#D97706" stroke-width="2"/>
+  <line x1="125" y1="160" x2="125" y2="250" stroke="#D97706" stroke-width="2"/>
+  <rect x="100" y="185" width="50" height="40" rx="4" fill="#FDE68A" stroke="#B45309" stroke-width="1.5"/>
+
+  <!-- Photo Box -->
+  <rect x="630" y="130" width="170" height="220" rx="12" fill="#E2E8F0" stroke="#94A3B8" stroke-width="2"/>
+  <!-- Avatar Silhouette -->
+  <circle cx="715" cy="210" r="45" fill="#94A3B8"/>
+  <path d="M650 330 C650 275, 780 275, 780 330 Z" fill="#64748B"/>
+
+  <!-- Card Details -->
+  <text x="240" y="160" font-family="'Segoe UI', Arial" font-size="16" fill="#64748B">අංකය / No:</text>
+  <text x="240" y="195" font-family="'Segoe UI', monospace" font-size="28" font-weight="900" fill="#0F172A">200125409823</text>
+  
+  <text x="240" y="240" font-family="'Segoe UI', Arial" font-size="16" fill="#64748B">නම / Name:</text>
+  <text x="240" y="270" font-family="'Noto Sans Sinhala', 'Segoe UI', Arial" font-size="20" font-weight="bold" fill="#1E293B">සෙනෙවිරත්න මුදියන්සේලාගේ අමිල</text>
+  <text x="240" y="298" font-family="'Segoe UI', Arial" font-size="18" font-weight="600" fill="#334155">A. M. SENEVIRATNE</text>
+
+  <text x="70" y="380" font-family="'Segoe UI', Arial" font-size="16" fill="#64748B">උපන් දිනය / Date of Birth:</text>
+  <text x="70" y="415" font-family="'Segoe UI', Arial" font-size="20" font-weight="bold" fill="#1E293B">2001.09.11</text>
+
+  <text x="340" y="380" font-family="'Segoe UI', Arial" font-size="16" fill="#64748B">ස්ත්‍රී/පුරුෂ භාවය / Sex:</text>
+  <text x="340" y="415" font-family="'Segoe UI', Arial" font-size="20" font-weight="bold" fill="#1E293B">M / පුරුෂ</text>
+
+  <!-- Specimen Watermark -->
+  <text x="428" y="320" font-family="'Segoe UI', Arial" font-size="80" font-weight="900" fill="#EF4444" opacity="0.18" text-anchor="middle" transform="rotate(-20 428 320)">SPECIMEN</text>
+</svg>

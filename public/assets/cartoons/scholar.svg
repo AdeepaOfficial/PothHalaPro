@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <circle cx="60" cy="60" r="56" fill="#FEF3C7"/>
+  <!-- Graduation Cap -->
+  <polygon points="60,20 88,32 60,40 32,32" fill="#1E293B"/>
+  <rect x="46" y="36" width="28" height="8" rx="2" fill="#0F172A"/>
+  <line x1="88" y1="32" x2="92" y2="46" stroke="#F59E0B" stroke-width="2"/>
+  <circle cx="92" cy="48" r="3" fill="#D97706"/>
+  <!-- Face -->
+  <circle cx="60" cy="58" r="20" fill="#FDE68A"/>
+  <!-- Glasses -->
+  <rect x="46" y="52" width="12" height="10" rx="3" fill="none" stroke="#1E293B" stroke-width="2"/>
+  <rect x="62" y="52" width="12" height="10" rx="3" fill="none" stroke="#1E293B" stroke-width="2"/>
+  <line x1="58" y1="56" x2="62" y2="56" stroke="#1E293B" stroke-width="2"/>
+  <circle cx="52" cy="57" r="2" fill="#1E293B"/>
+  <circle cx="68" cy="57" r="2" fill="#1E293B"/>
+  <!-- Smile -->
+  <path d="M54 68 Q60 74 66 68" stroke="#B45309" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Robe -->
+  <path d="M40 80 L30 115 L90 115 L80 80 Z" fill="#3B82F6"/>
+  <polygon points="60,80 50,115 70,115" fill="#FFFFFF"/>
+  <polygon points="60,86 54,98 60,96 66,98" fill="#EF4444"/>
+</svg>

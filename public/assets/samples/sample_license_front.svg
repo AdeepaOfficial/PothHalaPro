@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 540" width="856" height="540">
+  <defs>
+    <linearGradient id="dlBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="60%" stop-color="#FEF9C3"/>
+      <stop offset="100%" stop-color="#ECFCCB"/>
+    </linearGradient>
+  </defs>
+  <!-- Card Background -->
+  <rect x="0" y="0" width="856" height="540" rx="30" fill="url(#dlBg)" stroke="#CBD5E1" stroke-width="4"/>
+  
+  <!-- Header -->
+  <text x="260" y="50" font-family="'Noto Sans Sinhala', 'Segoe UI', Arial" font-size="20" font-weight="bold" fill="#854D0E">ශ්‍රී ලංකා රියදුරු බලපත්‍රය</text>
+  <text x="260" y="75" font-family="'Segoe UI', Arial" font-size="16" font-weight="700" fill="#713F12">DRIVING LICENCE - SRI LANKA</text>
+  
+  <!-- Photo Box -->
+  <rect x="50" y="100" width="170" height="220" rx="12" fill="#E2E8F0" stroke="#94A3B8" stroke-width="2"/>
+  <circle cx="135" cy="180" r="45" fill="#94A3B8"/>
+  <path d="M70 300 C70 245, 200 245, 200 300 Z" fill="#64748B"/>
+
+  <!-- Fields -->
+  <g transform="translate(250, 110)">
+    <text x="0" y="20" font-family="'Segoe UI', Arial" font-size="14" fill="#78350F">1. Surname / වාසගම:</text>
+    <text x="0" y="45" font-family="'Segoe UI', Arial" font-size="20" font-weight="bold" fill="#0F172A">SENEVIRATNE</text>
+
+    <text x="0" y="80" font-family="'Segoe UI', Arial" font-size="14" fill="#78350F">2. Other names / වෙනත් නම්:</text>
+    <text x="0" y="105" font-family="'Segoe UI', Arial" font-size="19" font-weight="600" fill="#0F172A">AMILA MUDIYANSE</text>
+
+    <text x="0" y="140" font-family="'Segoe UI', Arial" font-size="14" fill="#78350F">3. Date & Place of birth / උපන් දිනය:</text>
+    <text x="0" y="165" font-family="'Segoe UI', Arial" font-size="18" font-weight="bold" fill="#0F172A">1998.05.14 - COLOMBO</text>
+
+    <text x="0" y="200" font-family="'Segoe UI', Arial" font-size="14" fill="#78350F">4a. Issue Date: <tspan font-weight="bold" fill="#0F172A">2019.06.20</tspan></text>
+    <text x="250" y="200" font-family="'Segoe UI', Arial" font-size="14" fill="#78350F">4b. Expiry: <tspan font-weight="bold" fill="#DC2626">2027.06.20</tspan></text>
+
+    <text x="0" y="240" font-family="'Segoe UI', Arial" font-size="14" fill="#78350F">5. Licence No / බලපත්‍ර අංකය:</text>
+    <text x="0" y="270" font-family="'Segoe UI', monospace" font-size="26" font-weight="900" fill="#B91C1C">B 8472910</text>
+  </g>
+
+  <!-- Vehicle Categories bar -->
+  <rect x="50" y="400" width="756" height="85" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <text x="70" y="435" font-family="'Segoe UI', Arial" font-size="15" font-weight="bold" fill="#1E293B">VEHICLE CLASSES / වාහන පන්ති:</text>
+  <rect x="70" y="445" width="55" height="30" rx="4" fill="#1D4ED8"/>
+  <text x="97" y="466" font-family="'Segoe UI', Arial" font-size="16" font-weight="bold" fill="#FFFFFF" text-anchor="middle">A1</text>
+  <rect x="135" y="445" width="55" height="30" rx="4" fill="#1D4ED8"/>
+  <text x="162" y="466" font-family="'Segoe UI', Arial" font-size="16" font-weight="bold" fill="#FFFFFF" text-anchor="middle">A</text>
+  <rect x="200" y="445" width="55" height="30" rx="4" fill="#1D4ED8"/>
+  <text x="227" y="466" font-family="'Segoe UI', Arial" font-size="16" font-weight="bold" fill="#FFFFFF" text-anchor="middle">B1</text>
+  <rect x="265" y="445" width="55" height="30" rx="4" fill="#1D4ED8"/>
+  <text x="292" y="466" font-family="'Segoe UI', Arial" font-size="16" font-weight="bold" fill="#FFFFFF" text-anchor="middle">B</text>
+
+  <!-- Watermark -->
+  <text x="428" y="290" font-family="'Segoe UI', Arial" font-size="70" font-weight="900" fill="#EF4444" opacity="0.15" text-anchor="middle" transform="rotate(-15 428 290)">SPECIMEN</text>
+</svg>

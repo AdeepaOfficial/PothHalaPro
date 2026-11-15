@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <circle cx="60" cy="60" r="56" fill="#FEE2E2"/>
+  <!-- Racing Track Line -->
+  <line x1="15" y1="90" x2="105" y2="90" stroke="#94A3B8" stroke-width="4" stroke-dasharray="8 4"/>
+  <!-- Car Body -->
+  <path d="M25 72 L38 52 L72 52 L92 68 L100 75 L22 75 Z" fill="#DC2626"/>
+  <!-- Roof / Cockpit -->
+  <path d="M42 52 L52 40 L70 40 L75 52 Z" fill="#0284C7"/>
+  <circle cx="60" cy="46" r="4" fill="#FDE047"/>
+  <!-- Spoiler -->
+  <rect x="20" y="55" width="5" height="15" fill="#1F2937"/>
+  <rect x="15" y="53" width="14" height="4" fill="#DC2626"/>
+  <!-- Decal -->
+  <circle cx="60" cy="64" r="8" fill="#FFFFFF"/>
+  <text x="60" y="68" font-size="10" font-family="Arial, sans-serif" font-weight="900" text-anchor="middle" fill="#DC2626">1</text>
+  <!-- Wheels -->
+  <circle cx="38" cy="76" r="10" fill="#1E293B"/>
+  <circle cx="38" cy="76" r="5" fill="#94A3B8"/>
+  <circle cx="82" cy="76" r="10" fill="#1E293B"/>
+  <circle cx="82" cy="76" r="5" fill="#94A3B8"/>
+</svg>
