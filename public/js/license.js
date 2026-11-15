@@ -1,7 +1,7 @@
 /**
  * PothHalaPro - License & Offline Activation Engine
  * Supports 100% offline cryptographic key validation, device fingerprinting,
- * demo session countdown, and local persistence.
+ * demo session countdown, and local IndexedDB persistence via StorageManager.
  */
 
 const LicenseManager = (() => {
@@ -29,28 +29,40 @@ const LicenseManager = (() => {
 
   // Generate Device Fingerprint
   function getDeviceFingerprint() {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    ctx.textBaseline = 'top';
-    ctx.font = '14px Arial';
-    ctx.textBaseline = 'alphabetic';
-    ctx.fillStyle = '#f60';
-    ctx.fillRect(125, 1, 62, 20);
-    ctx.fillStyle = '#069';
-    ctx.fillText('PothHalaPro-SL', 2, 15);
-    ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
-    ctx.fillText('PothHalaPro-SL', 4, 17);
-    const canvasData = canvas.toDataURL();
+    let canvasData = '';
+    try {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.textBaseline = 'top';
+      ctx.font = '14px Arial';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillStyle = '#f60';
+      ctx.fillRect(125, 1, 62, 20);
+      ctx.fillStyle = '#069';
+      ctx.fillText('PothHalaPro-SL', 2, 15);
+      ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
+      ctx.fillText('PothHalaPro-SL', 4, 17);
+      canvasData = canvas.toDataURL();
+    } catch (e) {
+      canvasData = 'canvas_blocked_fallback';
+    }
 
     const raw = [
-      navigator.userAgent,
-      screen.width + 'x' + screen.height + 'x' + screen.colorDepth,
-      navigator.hardwareConcurrency || 4,
-      Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Colombo',
+      typeof navigator !== 'undefined' ? navigator.userAgent : 'Node/Test',
+      typeof screen !== 'undefined' ? screen.width + 'x' + screen.height + 'x' + screen.colorDepth : '1920x1080x24',
+      (typeof navigator !== 'undefined' && navigator.hardwareConcurrency) || 4,
+      (typeof Intl !== 'undefined' && Intl.DateTimeFormat().resolvedOptions().timeZone) || 'Asia/Colombo',
       canvasData.slice(-50)
     ].join('###');
 
-    return computeHash(raw) + '-' + computeHash(raw.split('').reverse().join(''));
+    const fp = computeHash(raw) + '-' + computeHash(raw.split('').reverse().join(''));
+
+    // Asynchronously record device fingerprint into IndexedDB
+    if (typeof window !== 'undefined' && window.StorageManager && typeof window.StorageManager.saveFingerprint === 'function') {
+      window.StorageManager.saveFingerprint(fp).catch(console.warn);
+    }
+
+    return fp;
   }
 
   // Cryptographic Key Generation (Used by Distributors / Admins)
@@ -64,6 +76,19 @@ const LicenseManager = (() => {
     const p3 = computeHash(checkRaw).slice(0, 4);
 
     return `PHP-${year}-${p1}-${p2}-${p3}`;
+  }
+
+  // Generate a verified offline cryptographic token
+  function generateOfflineToken(code, shopName, fingerprint) {
+    const raw = `${code}:::${shopName}:::${fingerprint}:::${KEY_SALT}`;
+    return `PHTOKEN-${computeHash(raw)}-${computeHash(raw.split('').reverse().join(''))}`;
+  }
+
+  // Verify an offline cryptographic token
+  function verifyOfflineToken(token, code, shopName, fingerprint) {
+    if (!token || typeof token !== 'string') return false;
+    const expected = generateOfflineToken(code, shopName, fingerprint);
+    return token === expected;
   }
 
   // Key Verification
@@ -95,24 +120,53 @@ const LicenseManager = (() => {
 
   // Initialize status on startup
   function init() {
-    loadLicense();
-    if (!isLicensed) {
-      startDemoTimer();
-    } else {
+    // 1. Synchronous initial check via localStorage for instant UI rendering
+    loadLicenseSync();
+    
+    if (isLicensed) {
       updateUIForLicensedState();
+    } else {
+      startDemoTimer();
+    }
+
+    // 2. Asynchronous IndexedDB verification via StorageManager
+    if (typeof window !== 'undefined' && window.StorageManager) {
+      window.StorageManager.init().then(() => {
+        return window.StorageManager.getLicense();
+      }).then((dbLicense) => {
+        if (dbLicense && dbLicense.code) {
+          const verification = verifyActivationCode(dbLicense.code);
+          if (verification.valid) {
+            isLicensed = true;
+            licenseDetails = dbLicense;
+            if (demoInterval) {
+              clearInterval(demoInterval);
+              demoInterval = null;
+            }
+            updateUIForLicensedState();
+          }
+        } else if (licenseDetails && licenseDetails.code) {
+          // Sync localStorage license to IndexedDB
+          window.StorageManager.saveLicense(licenseDetails).catch(console.warn);
+        }
+      }).catch((err) => {
+        console.warn('[LicenseManager] IndexedDB license check warning:', err);
+      });
     }
   }
 
-  function loadLicense() {
+  function loadLicenseSync() {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        const verification = verifyActivationCode(parsed.code);
-        if (verification.valid) {
-          isLicensed = true;
-          licenseDetails = parsed;
-          return;
+      if (typeof localStorage !== 'undefined') {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          const verification = verifyActivationCode(parsed.code);
+          if (verification.valid) {
+            isLicensed = true;
+            licenseDetails = parsed;
+            return;
+          }
         }
       }
     } catch (e) {
@@ -122,22 +176,47 @@ const LicenseManager = (() => {
     licenseDetails = null;
   }
 
-  function activate(shopName, ownerPhone, code) {
+  async function activate(shopName, ownerPhone, code) {
     const result = verifyActivationCode(code);
     if (!result.valid) {
       return { success: false, message: result.reason };
     }
 
+    const deviceFingerprint = getDeviceFingerprint();
+    const offlineToken = generateOfflineToken(result.code, shopName || 'Retail Bookshop', deviceFingerprint);
+
     const licenseData = {
+      id: 'current',
       shopName: shopName || 'Retail Bookshop & Communication',
       ownerPhone: ownerPhone || '07X XXX XXXX',
       code: result.code,
       activatedAt: new Date().toISOString(),
-      deviceFingerprint: getDeviceFingerprint(),
-      tier: 'LIFETIME_PRO_OFFLINE'
+      deviceFingerprint: deviceFingerprint,
+      offlineToken: offlineToken,
+      tier: 'LIFETIME_PRO_OFFLINE',
+      verifiedOffline: true
     };
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(licenseData));
+    // 1. LocalStorage for synchronous immediate fallback
+    try {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(licenseData));
+      }
+    } catch (e) {}
+
+    // 2. IndexedDB via StorageManager for durable offline persistence
+    if (typeof window !== 'undefined' && window.StorageManager) {
+      try {
+        await window.StorageManager.saveLicense(licenseData);
+        await window.StorageManager.saveFingerprint(deviceFingerprint, {
+          shopName: licenseData.shopName,
+          phone: licenseData.ownerPhone
+        });
+      } catch (idbErr) {
+        console.warn('[LicenseManager] IndexedDB activation persist warning:', idbErr);
+      }
+    }
+
     isLicensed = true;
     licenseDetails = licenseData;
 
@@ -147,10 +226,15 @@ const LicenseManager = (() => {
     }
 
     updateUIForLicensedState();
-    return { success: true, message: 'Permanent Lifetime License Activated Successfully!' };
+    return {
+      success: true,
+      message: 'Permanent Lifetime License Activated Successfully! (Verified Offline Token Stored)',
+      offlineToken: offlineToken
+    };
   }
 
   function startDemoTimer() {
+    if (typeof document === 'undefined') return;
     const timerBadge = document.getElementById('demo-timer-badge');
     const timerText = document.getElementById('demo-timer-text');
     if (!timerBadge || !timerText) return;
@@ -158,10 +242,13 @@ const LicenseManager = (() => {
     timerBadge.style.display = 'flex';
     demoTimeRemaining = DEMO_DURATION_SECONDS;
 
+    if (demoInterval) clearInterval(demoInterval);
+
     demoInterval = setInterval(() => {
       demoTimeRemaining--;
       if (demoTimeRemaining <= 0) {
         clearInterval(demoInterval);
+        demoInterval = null;
         timerText.textContent = '00:00 - Demo Expired';
         showDemoExpiredModal();
       } else {
@@ -173,16 +260,18 @@ const LicenseManager = (() => {
   }
 
   function showDemoExpiredModal() {
+    if (typeof document === 'undefined') return;
     const modal = document.getElementById('activate-license-modal');
     if (modal) {
       modal.classList.add('active');
     }
-    if (window.App && window.App.showToast) {
+    if (typeof window !== 'undefined' && window.App && window.App.showToast) {
       window.App.showToast('Demo trial session ended. Activate license to continue unlimited printing.', 'warning');
     }
   }
 
   function updateUIForLicensedState() {
+    if (typeof document === 'undefined' || typeof document.getElementById !== 'function') return;
     const timerBadge = document.getElementById('demo-timer-badge');
     if (timerBadge) timerBadge.style.display = 'none';
 
@@ -199,17 +288,20 @@ const LicenseManager = (() => {
       `;
     }
 
-    const btnTrigger = document.querySelector('.btn-activate-trigger');
-    if (btnTrigger) {
-      btnTrigger.textContent = '★ License Info';
-      btnTrigger.style.background = '#1E293B';
+    if (typeof document.querySelector === 'function') {
+      const btnTrigger = document.querySelector('.btn-activate-trigger');
+      if (btnTrigger) {
+        btnTrigger.textContent = '★ License Info';
+        btnTrigger.style.background = '#1E293B';
+      }
     }
 
-    // Unlock PRO badges
-    document.querySelectorAll('.nav-badge-pro').forEach(el => {
-      el.style.background = '#10B981';
-      el.textContent = 'UNLOCKED';
-    });
+    if (typeof document.querySelectorAll === 'function') {
+      document.querySelectorAll('.nav-badge-pro').forEach(el => {
+        el.style.background = '#10B981';
+        el.textContent = 'UNLOCKED';
+      });
+    }
   }
 
   return {
@@ -219,8 +311,12 @@ const LicenseManager = (() => {
     activate,
     generateActivationCode,
     verifyActivationCode,
-    getDeviceFingerprint
+    getDeviceFingerprint,
+    generateOfflineToken,
+    verifyOfflineToken
   };
 })();
 
-window.LicenseManager = LicenseManager;
+if (typeof window !== 'undefined') {
+  window.LicenseManager = LicenseManager;
+}

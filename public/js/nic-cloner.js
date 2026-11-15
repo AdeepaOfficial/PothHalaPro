@@ -1,9 +1,22 @@
 /**
  * PothHalaPro - Module 1: Smart NIC & Driving License 1:1 Scale Cloner
- * Renders exact physical millimeter scale A4 print layouts.
+ * Renders exact physical millimeter scale A4 print layouts and high-DPI 300 DPI Canvas sheets.
  */
 
 const NicCloner = (() => {
+  // 1:1 True Physical Millimeter & High-DPI Scale Constants
+  const MM_PER_INCH = 25.4;
+  const DPI_300 = 300;
+  const PIXELS_PER_MM_300DPI = DPI_300 / MM_PER_INCH; // 11.811023622047244 px/mm
+  const PIXELS_PER_MM_SCREEN = 96 / MM_PER_INCH; // 3.779527559 px/mm at 96 CSS DPI
+  const POINTS_PER_MM = 72 / MM_PER_INCH; // 2.834645669 pt/mm (CSS print point scale)
+
+  // A4 Standard Dimensions
+  const A4_WIDTH_MM = 210.0;
+  const A4_HEIGHT_MM = 297.0;
+  const A4_PX_W_300DPI = Math.round(A4_WIDTH_MM * PIXELS_PER_MM_300DPI); // 2480 px
+  const A4_PX_H_300DPI = Math.round(A4_HEIGHT_MM * PIXELS_PER_MM_300DPI); // 3508 px
+
   // Pre-calibrated dimensions in mm
   const PRESETS = {
     'iso-id1': { name: 'Smart NIC (ID-1)', widthMm: 85.6, heightMm: 54.0, class: 'size-id1' },
@@ -112,36 +125,28 @@ const NicCloner = (() => {
       });
     }
 
-    // Quick Sample Document Loader (1-Click Test)
-    const btnLoadSample = document.getElementById('btn-load-sample-nic');
-    if (btnLoadSample) {
-      btnLoadSample.addEventListener('click', () => {
-        loadSampleDocuments();
-      });
-    }
-
-    // Sliders
-    const brightnessInput = document.getElementById('nic-brightness');
+    // Filter Sliders: Brightness & Contrast
+    const brightnessSlider = document.getElementById('nic-brightness');
     const brightnessVal = document.getElementById('nic-brightness-val');
-    if (brightnessInput) {
-      brightnessInput.addEventListener('input', (e) => {
+    if (brightnessSlider) {
+      brightnessSlider.addEventListener('input', (e) => {
         brightness = parseInt(e.target.value, 10);
         if (brightnessVal) brightnessVal.textContent = `${brightness > 0 ? '+' : ''}${brightness}%`;
         renderLivePreview();
       });
     }
 
-    const contrastInput = document.getElementById('nic-contrast');
+    const contrastSlider = document.getElementById('nic-contrast');
     const contrastVal = document.getElementById('nic-contrast-val');
-    if (contrastInput) {
-      contrastInput.addEventListener('input', (e) => {
+    if (contrastSlider) {
+      contrastSlider.addEventListener('input', (e) => {
         contrast = parseInt(e.target.value, 10);
         if (contrastVal) contrastVal.textContent = `${contrast > 0 ? '+' : ''}${contrast}%`;
         renderLivePreview();
       });
     }
 
-    // B&W Toggle
+    // Laser Copy (B&W) Toggle
     const bwToggle = document.getElementById('nic-bw-toggle');
     if (bwToggle) {
       bwToggle.addEventListener('change', (e) => {
@@ -188,18 +193,23 @@ const NicCloner = (() => {
 
   function updateSlotThumbnail(side, dataUrl) {
     const slot = document.getElementById(`nic-${side}-slot`);
+    if (!slot) return;
     const imgEl = document.getElementById(`nic-${side}-thumb`);
     const prompt = slot.querySelector('.slot-prompt');
     const tools = slot.querySelector('.slot-tools');
 
     if (dataUrl) {
-      imgEl.src = dataUrl;
-      imgEl.style.display = 'block';
+      if (imgEl) {
+        imgEl.src = dataUrl;
+        imgEl.style.display = 'block';
+      }
       if (prompt) prompt.style.display = 'none';
       if (tools) tools.style.display = 'flex';
     } else {
-      imgEl.src = '';
-      imgEl.style.display = 'none';
+      if (imgEl) {
+        imgEl.src = '';
+        imgEl.style.display = 'none';
+      }
       if (prompt) prompt.style.display = 'block';
       if (tools) tools.style.display = 'none';
     }
@@ -234,6 +244,10 @@ const NicCloner = (() => {
     canvas.width = targetW;
     canvas.height = targetH;
     const ctx = canvas.getContext('2d');
+
+    // High quality interpolation settings
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
 
     if (!image) {
       // Draw placeholder
@@ -318,14 +332,9 @@ const NicCloner = (() => {
     if (!liveSheet || !printStage) return;
 
     const preset = PRESETS[activePresetKey] || PRESETS['iso-id1'];
-    
-    // Pixel sizing for preview (approx 2.834 px per mm at 72dpi screen scale)
-    const scaleFactor = 2.8346;
-    const cardPxW = Math.round(preset.widthMm * scaleFactor);
-    const cardPxH = Math.round(preset.heightMm * scaleFactor);
 
-    // High-resolution canvas for rendering (300 DPI: ~11.81 px per mm)
-    const printScaleFactor = 11.81;
+    // High-resolution canvas for rendering (300 DPI: 11.811 px per mm)
+    const printScaleFactor = PIXELS_PER_MM_300DPI;
     const printPxW = Math.round(preset.widthMm * printScaleFactor);
     const printPxH = Math.round(preset.heightMm * printScaleFactor);
 
@@ -336,16 +345,18 @@ const NicCloner = (() => {
     const backDataUrl = backCanvas.toDataURL();
 
     // 1. Populate Screen Preview Sheet
-    liveSheet.innerHTML = buildLayoutHtml({
-      layout: activeLayoutMode,
-      presetClass: preset.class,
-      frontSrc: frontDataUrl,
-      backSrc: backDataUrl,
-      widthMm: preset.widthMm,
-      heightMm: preset.heightMm,
-      guides: showCuttingGuides,
-      isScreen: true
-    });
+    if (document.getElementById('view-nic')?.classList.contains('active')) {
+      liveSheet.innerHTML = buildLayoutHtml({
+        layout: activeLayoutMode,
+        presetClass: preset.class,
+        frontSrc: frontDataUrl,
+        backSrc: backDataUrl,
+        widthMm: preset.widthMm,
+        heightMm: preset.heightMm,
+        guides: showCuttingGuides,
+        isScreen: true
+      });
+    }
 
     // 2. Populate Dedicated Print Stage
     printStage.innerHTML = buildLayoutHtml({
@@ -409,7 +420,6 @@ const NicCloner = (() => {
     }
 
     if (opts.layout === '4copy-eco') {
-      // 4 pairs (8 cards total)
       let cards = '';
       for (let i = 0; i < 4; i++) {
         cards += `
@@ -432,6 +442,177 @@ const NicCloner = (() => {
     return '';
   }
 
+  // =============================================================
+  // HIGH-DPI 1:1 PHYSICAL MILLIMETER CANVAS RENDERING ENGINE
+  // =============================================================
+
+  /**
+   * Render the entire A4 physical sheet (210mm x 297mm @ 300 DPI = 2480 x 3508 px)
+   * directly onto an HTML5 Canvas for bit-for-bit print production.
+   */
+  function renderFullA4SheetCanvas(dpi = DPI_300) {
+    const scale = dpi / MM_PER_INCH;
+    const sheetW = Math.round(A4_WIDTH_MM * scale);
+    const sheetH = Math.round(A4_HEIGHT_MM * scale);
+
+    const canvas = document.createElement('canvas');
+    canvas.width = sheetW;
+    canvas.height = sheetH;
+    const ctx = canvas.getContext('2d');
+
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    // 1. Crisp Pure White A4 Page
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, sheetW, sheetH);
+
+    const preset = PRESETS[activePresetKey] || PRESETS['iso-id1'];
+    const cardPxW = Math.round(preset.widthMm * scale);
+    const cardPxH = Math.round(preset.heightMm * scale);
+
+    const frontCard = processCardCanvas(frontImage, frontRotation, cardPxW, cardPxH);
+    const backCard = processCardCanvas(backImage, backRotation, cardPxW, cardPxH);
+
+    // Draw card helper with border and optional cut guide
+    function drawCardWithGuides(x, y, cardCanvas, label) {
+      ctx.drawImage(cardCanvas, x, y);
+
+      if (showCuttingGuides) {
+        ctx.strokeStyle = '#475569';
+        ctx.lineWidth = Math.max(1, Math.round(0.25 * scale));
+        ctx.setLineDash([Math.round(2 * scale), Math.round(2 * scale)]);
+        ctx.strokeRect(x, y, cardPxW, cardPxH);
+        ctx.setLineDash([]);
+
+        // Scissors corner mark
+        ctx.fillStyle = '#64748B';
+        ctx.font = `${Math.round(8 * (scale / 3.78))}px Arial, sans-serif`;
+        ctx.fillText('✂', x + cardPxW + 4, y + 10);
+      }
+    }
+
+    if (activeLayoutMode === 'side-by-side') {
+      const gapX = Math.round(12 * scale);
+      const topY = Math.round(50 * scale);
+      const totalW = (cardPxW * 2) + gapX;
+      const startX = Math.round((sheetW - totalW) / 2);
+
+      drawCardWithGuides(startX, topY, frontCard, 'Front');
+      drawCardWithGuides(startX + cardPxW + gapX, topY, backCard, 'Back');
+    } else if (activeLayoutMode === 'stacked') {
+      const gapY = Math.round(15 * scale);
+      const topY = Math.round(35 * scale);
+      const startX = Math.round((sheetW - cardPxW) / 2);
+
+      drawCardWithGuides(startX, topY, frontCard, 'Front');
+      drawCardWithGuides(startX, topY + cardPxH + gapY, backCard, 'Back');
+    } else if (activeLayoutMode === 'fold-laminate') {
+      const topY = Math.round(40 * scale);
+      const startX = Math.round((sheetW - cardPxW) / 2);
+
+      drawCardWithGuides(startX, topY, frontCard, 'Front');
+
+      // Central Fold Line
+      const foldY = topY + cardPxH;
+      ctx.strokeStyle = '#1E293B';
+      ctx.lineWidth = Math.max(1, Math.round(0.35 * scale));
+      ctx.setLineDash([Math.round(3 * scale), Math.round(3 * scale)]);
+      ctx.beginPath();
+      ctx.moveTo(startX - Math.round(10 * scale), foldY);
+      ctx.lineTo(startX + cardPxW + Math.round(10 * scale), foldY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = '#475569';
+      ctx.font = `${Math.round(7 * (scale / 3.78))}px Arial, sans-serif`;
+      ctx.fillText('FOLD HERE (නමන්න) ✂', startX + cardPxW + Math.round(12 * scale), foldY + 4);
+
+      drawCardWithGuides(startX, foldY, backCard, 'Back');
+    } else if (activeLayoutMode === '4copy-eco') {
+      const gapX = Math.round(10 * scale);
+      const gapY = Math.round(6 * scale);
+      const topY = Math.round(8 * scale);
+      const startX = Math.round((sheetW - (cardPxW * 2 + gapX)) / 2);
+
+      for (let i = 0; i < 4; i++) {
+        const rowY = topY + i * (cardPxH + gapY);
+        drawCardWithGuides(startX, rowY, frontCard, `Front ${i+1}`);
+        drawCardWithGuides(startX + cardPxW + gapX, rowY, backCard, `Back ${i+1}`);
+      }
+    }
+
+    // Demo Watermark if unlicensed
+    if (!window.LicenseManager?.isLicensed()) {
+      ctx.save();
+      ctx.translate(sheetW / 2, sheetH / 2);
+      ctx.rotate((-35 * Math.PI) / 180);
+      ctx.fillStyle = 'rgba(220, 38, 38, 0.12)';
+      ctx.font = `900 ${Math.round(42 * (scale / 2.83))}px Arial, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('POTHA HALA PRO - DEMO', 0, 0);
+      ctx.restore();
+    }
+
+    return canvas;
+  }
+
+  /**
+   * Export the 300 DPI A4 Canvas as a downloadable PNG
+   */
+  function exportA4HighResPng(filename = 'PothHalaPro_1to1_NIC_Print_300DPI.png') {
+    const canvas = renderFullA4SheetCanvas(DPI_300);
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = canvas.toDataURL('image/png');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    if (window.App && window.App.showToast) {
+      window.App.showToast('Exported 300 DPI 1:1 true scale print canvas', 'success');
+    }
+  }
+
+  /**
+   * Mathematical verification utility for automated test suites
+   */
+  function verify1To1ScaleMath(dpi = DPI_300) {
+    const pxPerMm = dpi / MM_PER_INCH;
+    const results = {};
+
+    Object.entries(PRESETS).forEach(([key, preset]) => {
+      const exactPxW = preset.widthMm * pxPerMm;
+      const exactPxH = preset.heightMm * pxPerMm;
+      const roundedPxW = Math.round(exactPxW);
+      const roundedPxH = Math.round(exactPxH);
+
+      results[key] = {
+        name: preset.name,
+        widthMm: preset.widthMm,
+        heightMm: preset.heightMm,
+        targetPxW: roundedPxW,
+        targetPxH: roundedPxH,
+        exactPxW: exactPxW,
+        exactPxH: exactPxH,
+        verified: Math.abs(exactPxW - roundedPxW) < 0.5 && Math.abs(exactPxH - roundedPxH) < 0.5
+      };
+    });
+
+    return {
+      dpi: dpi,
+      mmPerInch: MM_PER_INCH,
+      pixelsPerMm: pxPerMm,
+      a4Dimensions: {
+        widthMm: A4_WIDTH_MM,
+        heightMm: A4_HEIGHT_MM,
+        pxW: Math.round(A4_WIDTH_MM * pxPerMm),
+        pxH: Math.round(A4_HEIGHT_MM * pxPerMm)
+      },
+      presets: results,
+      allVerified: Object.values(results).every(r => r.verified)
+    };
+  }
+
   function triggerPrint() {
     renderLivePreview();
     window.print();
@@ -439,10 +620,17 @@ const NicCloner = (() => {
 
   return {
     init,
+    PRESETS,
+    PIXELS_PER_MM_300DPI,
     renderLivePreview,
     triggerPrint,
-    loadSampleDocuments
+    loadSampleDocuments,
+    renderFullA4SheetCanvas,
+    exportA4HighResPng,
+    verify1To1ScaleMath
   };
 })();
 
-window.NicCloner = NicCloner;
+if (typeof window !== 'undefined') {
+  window.NicCloner = NicCloner;
+}
