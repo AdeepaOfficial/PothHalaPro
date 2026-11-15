@@ -1,0 +1,20 @@
+# PothHalaPro Apache / XAMPP / WAMP Rewrite Configuration
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /src/php/
+
+    # Handle CORS preflight
+    RewriteCond %{REQUEST_METHOD} OPTIONS
+    RewriteRule ^(.*)$ api.php [QSA,L]
+
+    # Route clean API paths to api.php if file does not exist
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ api.php?route=$1 [QSA,L]
+</IfModule>
+
+# Disable directory listing
+Options -Indexes
+
+# Default charset
+AddDefaultCharset UTF-8

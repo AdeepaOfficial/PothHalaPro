@@ -74,6 +74,15 @@ jobs:
           node -c public/sw.js
           echo "All JavaScript modules passed syntax validation."
 
+      - name: Validate PHP Syntax & Endpoints
+        run: |
+          for f in src/php/*.php; do
+            if [ -f "$f" ]; then
+              php -l "$f"
+            fi
+          done
+          echo "All PHP REST API endpoints passed syntax validation."
+
       - name: Verify Vector Cartoons & Samples
         run: |
           cartoons=(

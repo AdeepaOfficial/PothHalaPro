@@ -73,9 +73,18 @@ PothHalaPro/
 │   ├── sw.js                     # Offline Service Worker cache
 │   └── index.html                # Single Page Application shell
 ├── src/
+│   ├── php/                      # Portable PHP REST API suite (XAMPP / WAMP / Apache)
+│   │   ├── api.php               # Master API router, CORS & status probe
+│   │   ├── license.php           # Cryptographic license validation & device binding
+│   │   ├── billing.php           # Fast Billing POS, item catalog & receipts
+│   │   ├── config.php            # Environment configuration & crypto helpers
+│   │   ├── db.php                # PDO MySQL connection & SQLite offline fallback
+│   │   ├── .htaccess             # Apache rewrite rules
+│   │   └── README.md             # PHP API documentation & phpMyAdmin guide
 │   └── server/
 │       └── PothHalaServer.java   # Zero-dependency Java 21 HTTP & REST server
-├── run.bat                       # 1-click Windows compilation & server launch
+├── run.bat                       # 1-click Windows Java compilation & server launch
+├── run_php.bat                   # 1-click Windows PHP launcher (XAMPP/WAMP/CLI)
 ├── start_offline.bat             # 1-click direct browser launch (no server needed)
 └── README.md                     # Documentation
 ```
@@ -91,6 +100,12 @@ PothHalaPro/
 ### Method B: 100% Standalone Offline Launch (No Java required)
 1. Double-click `start_offline.bat` (or open `public/index.html` in Chrome or Edge).
 2. The entire application runs directly in the browser with full offline functionality.
+
+### Method C: Portable PHP REST API (XAMPP / WAMP / Apache)
+1. Copy `PothHalaPro` into your web root (e.g. `C:\xampp\htdocs\PothHalaPro` or `C:\wamp64\www\PothHalaPro`).
+2. Start Apache and MySQL from XAMPP or WAMP Control Panel.
+3. Import `database/schema.sql` and `database/seed_data.sql` in phpMyAdmin (`http://localhost/phpmyadmin`).
+4. Access API status at `http://localhost/PothHalaPro/src/php/api.php?route=status` or run `run_php.bat`.
 
 ---
 
