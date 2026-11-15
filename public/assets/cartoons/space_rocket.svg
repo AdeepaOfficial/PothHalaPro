@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <circle cx="60" cy="60" r="56" fill="#0F172A"/>
+  <!-- Deep Space Stars & Nebula Dots -->
+  <circle cx="28" cy="24" r="2" fill="#FACC15"/>
+  <circle cx="92" cy="28" r="1.5" fill="#38BDF8"/>
+  <circle cx="22" cy="75" r="1.5" fill="#FFFFFF"/>
+  <circle cx="98" cy="70" r="2" fill="#FACC15"/>
+  <circle cx="85" cy="95" r="1.5" fill="#FFFFFF"/>
+  <circle cx="32" cy="98" r="1.5" fill="#38BDF8"/>
+  <polygon points="38,40 39,43 42,44 39,45 38,48 37,45 34,44 37,43" fill="#FFFFFF"/>
+  <polygon points="82,48 83,50 85,51 83,52 82,54 81,52 79,51 81,50" fill="#FDE047"/>
+  <!-- Rocket Thruster Exhaust Flame -->
+  <path d="M52 88 Q60 114 60 118 Q60 114 68 88 Z" fill="#EF4444"/>
+  <path d="M54 88 Q60 108 60 112 Q60 108 66 88 Z" fill="#F97316"/>
+  <path d="M56 88 Q60 100 60 104 Q60 100 64 88 Z" fill="#FACC15"/>
+  <!-- Thruster Nozzle -->
+  <rect x="52" y="84" width="16" height="5" rx="1.5" fill="#475569"/>
+  <!-- Side Booster Fins -->
+  <path d="M44 68 L32 86 L44 84 Z" fill="#DC2626"/>
+  <path d="M76 68 L88 86 L76 84 Z" fill="#DC2626"/>
+  <!-- Center Fin / Keel -->
+  <rect x="58.5" y="72" width="3" height="14" rx="1" fill="#DC2626"/>
+  <!-- Main Rocket Fuselage -->
+  <path d="M60 18 C50 32 44 54 44 86 L76 86 C76 54 70 32 60 18 Z" fill="#F8FAFC"/>
+  <!-- Red Nosecone -->
+  <path d="M60 18 C55 25 50 34 48 40 L72 40 C70 34 65 25 60 18 Z" fill="#DC2626"/>
+  <!-- Decorative Stripe -->
+  <path d="M45.5 64 L74.5 64 L75 70 L45 70 Z" fill="#0284C7"/>
+  <!-- Porthole Window -->
+  <circle cx="60" cy="50" r="10" fill="#E2E8F0" stroke="#94A3B8" stroke-width="2"/>
+  <circle cx="60" cy="50" r="8" fill="#0284C7"/>
+  <!-- Porthole Glass Glare & Reflection -->
+  <path d="M54 46 Q60 43 65 47" stroke="#BAE6FD" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Small Star inside cockpit -->
+  <circle cx="60" cy="52" r="2.5" fill="#FDE047"/>
+</svg>

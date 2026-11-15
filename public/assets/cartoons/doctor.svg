@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <circle cx="60" cy="60" r="56" fill="#E0F2FE"/>
+  <!-- Medical Cross Badge in Background -->
+  <circle cx="92" cy="30" r="14" fill="#FFFFFF" stroke="#BAE6FD" stroke-width="1.5"/>
+  <rect x="90" y="22" width="4" height="16" rx="1.5" fill="#EF4444"/>
+  <rect x="84" y="28" width="16" height="4" rx="1.5" fill="#EF4444"/>
+  <!-- Doctor Hair -->
+  <circle cx="60" cy="46" r="23" fill="#1E293B"/>
+  <ellipse cx="60" cy="38" rx="22" ry="16" fill="#1E293B"/>
+  <!-- Medical Headband / Mirror -->
+  <path d="M38 38 Q60 33 82 38" stroke="#94A3B8" stroke-width="3" fill="none"/>
+  <circle cx="60" cy="34" r="7" fill="#E2E8F0" stroke="#0284C7" stroke-width="2"/>
+  <circle cx="60" cy="34" r="3" fill="#0284C7"/>
+  <circle cx="58.5" cy="32.5" r="1" fill="#FFFFFF"/>
+  <!-- Face -->
+  <circle cx="60" cy="52" r="18" fill="#FDE68A"/>
+  <!-- Eyes -->
+  <circle cx="52" cy="50" r="2.5" fill="#1E293B"/>
+  <circle cx="53" cy="49" r="0.8" fill="#FFFFFF"/>
+  <circle cx="68" cy="50" r="2.5" fill="#1E293B"/>
+  <circle cx="69" cy="49" r="0.8" fill="#FFFFFF"/>
+  <!-- Cheeks -->
+  <circle cx="47" cy="56" r="2.5" fill="#FCA5A5" opacity="0.6"/>
+  <circle cx="73" cy="56" r="2.5" fill="#FCA5A5" opacity="0.6"/>
+  <!-- Smile -->
+  <path d="M55 58 Q60 63 65 58" stroke="#B45309" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <!-- Doctor White Coat & Body -->
+  <path d="M38 68 C32 76 26 95 22 116 L98 116 C94 95 88 76 82 68 Z" fill="#F8FAFC"/>
+  <!-- Blue Scrubs Collar -->
+  <polygon points="60,68 50,82 60,86 70,82" fill="#0284C7"/>
+  <!-- Coat Lapels -->
+  <path d="M46 68 L54 88 L40 116 L28 116 Z" fill="#E2E8F0"/>
+  <path d="M74 68 L66 88 L80 116 L92 116 Z" fill="#E2E8F0"/>
+  <!-- Pocket with Pens -->
+  <rect x="74" y="92" width="14" height="12" rx="2" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="76" y="88" width="2" height="6" fill="#3B82F6"/>
+  <rect x="80" y="87" width="2" height="7" fill="#EF4444"/>
+  <!-- Stethoscope around neck -->
+  <path d="M48 70 C46 80 50 94 60 97 C70 94 74 80 72 70" fill="none" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Stethoscope Chest Piece -->
+  <line x1="60" y1="97" x2="60" y2="105" stroke="#475569" stroke-width="2"/>
+  <circle cx="60" cy="107" r="5" fill="#94A3B8" stroke="#475569" stroke-width="2"/>
+  <circle cx="60" cy="107" r="2" fill="#38BDF8"/>
+</svg>
