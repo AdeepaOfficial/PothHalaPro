@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PothHalaPro - All-in-One Bookshop, Communication & Education Print Studio</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/print.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- =============================================================
+       APP SIDEBAR (Collapsible 3-Hub Suite)
+       ============================================================= -->
+  <aside id="app-sidebar">
+    <div class="sidebar-header">
+      <div class="brand-badge">
+        <div class="brand-logo-icon">P</div>
+        <div class="brand-text">
+          <h1>PothHalaPro</h1>
+          <span>Print & Bookshop Studio</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-scroll">
+      <!-- Hub 1: Cards & Production -->
+      <div class="nav-section-title">Cards & Production</div>
+      <a class="nav-item active" data-nav-view="view-nic">
+        <span class="icon">🪪</span>
+        <span>NIC & License Cloner</span>
+      </a>
+      <a class="nav-item" data-nav-view="view-stickers">
+        <span class="icon">🏷️</span>
+        <span>Name Sticker Studio</span>
+      </a>
+      <a class="nav-item" data-nav-view="view-passport">
+        <span class="icon">📷</span>
+        <span>Passport & Visa Photos</span>
+      </a>
+      <a class="nav-item" data-nav-view="view-pos">
+        <span class="icon">🧾</span>
+        <span>Fast Billing & Counter POS</span>
+      </a>
+
+      <!-- Hub 2: Documents & Gov Forms -->
+      <div class="nav-section-title">Documents & Gov Forms</div>
+      <a class="nav-item" data-nav-view="view-gov">
+        <span class="icon">📋</span>
+        <span>Sri Lanka Gov Applications</span>
+      </a>
+
+      <!-- Hub 3: Student Assets & Education -->
+      <div class="nav-section-title">Student Assets & Library</div>
+      <a class="nav-item" data-nav-view="view-edu">
+        <span class="icon">📚</span>
+        <span>Exam Papers & Worksheets</span>
+      </a>
+    </div>
+
+    <!-- Sidebar Footer & License Pill -->
+    <div class="sidebar-footer">
+      <div class="license-status-card" id="sidebar-license-card">
+        <div id="sidebar-license-status">
+          <div class="status-indicator">
+            <span class="status-dot"></span>
+            <span style="color:#F59E0B;font-weight:700;">FREE DEMO MODE</span>
+          </div>
+          <div style="font-size:11px;color:#94A3B8;margin-top:2px;">5-Min Session Trial</div>
+        </div>
+        <button class="btn-activate-trigger">🔑 Activate Lifetime License</button>
+      </div>
+      <div style="margin-top:8px;text-align:center;">
+        <a href="javascript:void(0)" onclick="App.showModal('keygen-modal')" style="font-size:10.5px;color:#64748B;text-decoration:none;">Distributor Keygen Portal</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =============================================================
+       APP MAIN CONTENT AREA
+       ============================================================= -->
+  <main id="app-main">
+    <!-- Top Action & Status Header -->
+    <header id="app-header">
+      <div class="header-left">
+        <button class="btn-quick-search">
+          <span>🔍 Quick Search Tools & Forms</span>
+          <span class="kbd-shortcut">Ctrl + K</span>
+        </button>
+      </div>
+
+      <div class="header-right">
+        <!-- Demo Countdown Timer -->
+        <div class="demo-timer-badge" id="demo-timer-badge">
+          <span>⏱️</span>
+          <span id="demo-timer-text">05:00 (Demo)</span>
+        </div>
+
+        <!-- Bilingual Sinhala / English Toggle -->
+        <div class="bilingual-toggle">
+          <button class="btn-lang active" id="btn-lang-si">සිංහල</button>
+          <button class="btn-lang" id="btn-lang-en">ENG</button>
+        </div>
+
+        <!-- Calibration Guide Button -->
+        <button onclick="App.showModal('calibration-modal')" class="btn-slot-tool" style="padding:7px 12px;font-size:12.5px;">
+          ⚙️ 1:1 Printer Calibration
+        </button>
+
+        <!-- 1-Click Print A4 Action Button -->
+        <button class="btn-print-action" id="btn-global-print">
+          <span>🖨️</span>
+          <span>1-Click Print A4 (100% Scale)</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ===========================================================
+         VIEW 1: SMART NIC & DRIVING LICENSE 1:1 CLONER
+         =========================================================== -->
+    <section class="view-container active" id="view-nic">
+      <div class="view-header">
+        <div>
+          <h2>Smart NIC & Driving License 1:1 Scale Cloner</h2>
+          <p>Convert phone/WhatsApp photos into exact physical millimeter scale A4 printouts in seconds.</p>
+        </div>
+        <div>
+          <button id="btn-load-sample-nic" class="btn-slot-tool" style="background:#EFF6FF;color:#2563EB;border-color:#BFDBFE;padding:8px 14px;font-size:13px;">
+            📄 Load Specimen Document
+          </button>
+        </div>
+      </div>
+
+      <div class="studio-layout">
+        <!-- Left: Interactive Controls -->
+        <div class="controls-card">
+          <!-- Card Presets -->
+          <div class="controls-section">
+            <div class="section-label">1. Card Dimension Preset</div>
+            <div class="preset-grid">
+              <button class="btn-preset active" data-nic-preset="iso-id1">
+                <span class="preset-title">Smart NIC (ID-1)</span>
+                <span class="preset-dim">85.6 × 54.0 mm</span>
+              </button>
+              <button class="btn-preset" data-nic-preset="mta-license">
+                <span class="preset-title">MTA Driving License</span>
+                <span class="preset-dim">85.6 × 54.0 mm</span>
+              </button>
+              <button class="btn-preset" data-nic-preset="classic-nic">
+                <span class="preset-title">Classic Laminated NIC</span>
+                <span class="preset-dim">100.0 × 65.0 mm</span>
+              </button>
+              <button class="btn-preset" data-nic-preset="postal-id">
+                <span class="preset-title">Postal Identity Card</span>
+                <span class="preset-dim">95.0 × 60.0 mm</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Document Upload Slots -->
+          <div class="controls-section">
+            <div class="section-label">2. Document Image Slots</div>
+            <div class="upload-slots-grid">
+              <!-- Front Slot -->
+              <div class="upload-slot" id="nic-front-slot">
+                <input type="file" id="nic-front-input" accept="image/*" style="display:none;">
+                <div class="slot-prompt">
+                  <div style="font-size:24px;margin-bottom:4px;">📷</div>
+                  <div style="font-size:12px;font-weight:700;">Front Side</div>
+                  <div style="font-size:10px;color:#94A3B8;">Click to upload</div>
+                </div>
+                <img id="nic-front-thumb" class="slot-preview" alt="Front">
+                <div class="slot-tools" style="display:none;">
+                  <button type="button" class="btn-slot-tool" id="btn-rotate-front">↻ Rotate</button>
+                  <button type="button" class="btn-slot-tool" id="btn-remove-front" style="color:#EF4444;">✕</button>
+                </div>
+              </div>
+
+              <!-- Back Slot -->
+              <div class="upload-slot" id="nic-back-slot">
+                <input type="file" id="nic-back-input" accept="image/*" style="display:none;">
+                <div class="slot-prompt">
+                  <div style="font-size:24px;margin-bottom:4px;">📷</div>
+                  <div style="font-size:12px;font-weight:700;">Back Side</div>
+                  <div style="font-size:10px;color:#94A3B8;">Click to upload</div>
+                </div>
+                <img id="nic-back-thumb" class="slot-preview" alt="Back">
+                <div class="slot-tools" style="display:none;">
+                  <button type="button" class="btn-slot-tool" id="btn-rotate-back">↻ Rotate</button>
+                  <button type="button" class="btn-slot-tool" id="btn-remove-back" style="color:#EF4444;">✕</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Layout Modes -->
+          <div class="controls-section">
+            <div class="section-label">3. A4 Sheet Layout Mode</div>
+            <div class="preset-grid">
+              <button class="btn-preset active" data-nic-layout="side-by-side">
+                <span class="preset-title">Side-by-Side</span>
+                <span class="preset-dim">Horizontal Centered</span>
+              </button>
+              <button class="btn-preset" data-nic-layout="stacked">
+                <span class="preset-title">Stacked</span>
+                <span class="preset-dim">Vertical Aligned</span>
+              </button>
+              <button class="btn-preset" data-nic-layout="fold-laminate">
+                <span class="preset-title">Fold & Laminate</span>
+                <span class="preset-dim">Pouch Cut & Fold Line</span>
+              </button>
+              <button class="btn-preset" data-nic-layout="4copy-eco">
+                <span class="preset-title">4-Copy Eco</span>
+                <span class="preset-dim">4 Front & Back Sets</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Live Image Enhancer Controls -->
+          <div class="controls-section">
+            <div class="section-label">4. Real-Time Laser Copy Enhancer</div>
+            
+            <div class="slider-group">
+              <div class="slider-header">
+                <span>Brightness</span>
+                <span id="nic-brightness-val">0%</span>
+              </div>
+              <input type="range" id="nic-brightness" class="slider-control" min="-100" max="100" value="0">
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-header">
+                <span>Contrast</span>
+                <span id="nic-contrast-val">0%</span>
+              </div>
+              <input type="range" id="nic-contrast" class="slider-control" min="-100" max="100" value="0">
+            </div>
+
+            <div class="toggle-row">
+              <div>
+                <div style="font-size:13px;font-weight:600;">Crisp B&W Laser Copy</div>
+                <div style="font-size:11px;color:#64748B;">Removes background shadow & saves toner</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="nic-bw-toggle">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-row">
+              <div>
+                <div style="font-size:13px;font-weight:600;">Dashed Cutting Guides</div>
+                <div style="font-size:11px;color:#64748B;">Millimeter trim lines with scissor mark</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="nic-guides-toggle" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Live A4 Interactive Sheet Preview -->
+        <div class="preview-panel">
+          <div class="preview-toolbar">
+            <div class="preview-title-badge">
+              <span>📄 A4 True Scale Preview (210 × 297 mm)</span>
+            </div>
+            <div class="zoom-controls">
+              <button class="btn-zoom" id="btn-zoom-out">-</button>
+              <span id="zoom-percentage-text" style="font-size:12px;font-weight:700;min-width:38px;text-align:center;">100%</span>
+              <button class="btn-zoom" id="btn-zoom-in">+</button>
+              <button class="btn-zoom" id="btn-zoom-reset" style="font-size:11px;padding:2px 6px;">Reset</button>
+            </div>
+          </div>
+
+          <div class="a4-viewport-wrapper">
+            <div id="a4-live-sheet">
+              <!-- Rendered via JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================================================
+         VIEW 2: SMART SCHOOL NAME STICKER STUDIO
+         =========================================================== -->
+    <section class="view-container" id="view-stickers">
+      <div class="view-header">
+        <div>
+          <h2>Smart School Name Sticker Studio</h2>
+          <p>1-Click Curriculum Subject Automation, Cartoon Engine & 8-Up A4 Sticker Sheet Generator.</p>
+        </div>
+      </div>
+
+      <div class="studio-layout">
+        <!-- Left: Sticker Configuration Controls -->
+        <div class="controls-card">
+          <!-- Student Details -->
+          <div class="controls-section">
+            <div class="section-label">1. Student Information</div>
+            <div class="form-group">
+              <label>Student Name (නම):</label>
+              <input type="text" id="sticker-student-name" class="form-control" value="කවීෂා සෙනෙවිරත්න">
+            </div>
+            <div class="form-group">
+              <label>School Name (පාසල):</label>
+              <input type="text" id="sticker-school-name" class="form-control" value="ආනන්ද විද්‍යාලය - කොළඹ">
+            </div>
+          </div>
+
+          <!-- Grade & Section Automation -->
+          <div class="controls-section">
+            <div class="section-label">2. Grade Selector (Auto Curriculum)</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;">
+              ${Array.from({length: 13}, (_, i) => i + 1).map(g => `
+                <button class="btn-slot-tool ${g === 5 ? 'active' : ''}" data-grade="${g}" style="padding:4px 8px;font-weight:700;">
+                  Gr ${g}
+                </button>
+              `).join('')}
+            </div>
+
+            <div class="section-label" style="margin-top:10px;">Class Section</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;">
+              ${['A', 'B', 'C', 'D', 'E', 'රෝස', 'නෙළුම්', 'සමන්', 'No Class'].map(sec => `
+                <button class="btn-slot-tool ${sec === 'A' ? 'active' : ''}" data-section="${sec}" style="padding:3px 7px;font-size:11px;">
+                  ${sec}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Pack Mode -->
+          <div class="controls-section">
+            <div class="section-label">3. Print Pack Mode</div>
+            <select id="sticker-pack-mode" class="form-control" style="margin-bottom:8px;">
+              <option value="multi">Multi-Pack (8 Distinct Official Subjects on A4)</option>
+              <option value="8pack">8-Pack (8 Identical Stickers for Single Subject)</option>
+            </select>
+
+            <div id="single-subject-wrapper" style="display:none;" class="form-group">
+              <label>Custom Subject Name:</label>
+              <input type="text" id="sticker-single-subject" class="form-control" value="ගණිතය">
+            </div>
+          </div>
+
+          <!-- Modern Templates (Standard & PRO) -->
+          <div class="controls-section">
+            <div class="section-label">4. Modern Templates</div>
+            <div class="theme-selector-grid">
+              <button class="btn-theme-card active" data-template="cyber-neon">Cyber Neon</button>
+              <button class="btn-theme-card" data-template="royal-gold">Royal Gold</button>
+              <button class="btn-theme-card" data-template="kawaii-pink">Kawaii Pink</button>
+              <button class="btn-theme-card" data-template="turbo-orange">Turbo Orange</button>
+              <button class="btn-theme-card" data-template="galactic-pro">Galactic ⭐</button>
+              <button class="btn-theme-card" data-template="vintage-pro">Vintage ⭐</button>
+              <button class="btn-theme-card" data-template="minimalist-pro">Minimal ⭐</button>
+              <button class="btn-theme-card" data-template="heritage-pro">Heritage ⭐</button>
+            </div>
+          </div>
+
+          <!-- Cartoon & Avatar Engine -->
+          <div class="controls-section">
+            <div class="section-label">5. Avatar & Cartoon Customizer</div>
+            <div class="cartoon-picker-grid">
+              <button class="cartoon-thumb-btn active" data-cartoon="superhero">
+                <img src="./assets/cartoons/superhero.svg" alt="Superhero">
+                <span style="font-size:10px;">Hero</span>
+              </button>
+              <button class="cartoon-thumb-btn" data-cartoon="astronaut">
+                <img src="./assets/cartoons/astronaut.svg" alt="Astronaut">
+                <span style="font-size:10px;">Space</span>
+              </button>
+              <button class="cartoon-thumb-btn" data-cartoon="princess">
+                <img src="./assets/cartoons/princess.svg" alt="Princess">
+                <span style="font-size:10px;">Princess</span>
+              </button>
+              <button class="cartoon-thumb-btn" data-cartoon="racing_car">
+                <img src="./assets/cartoons/racing_car.svg" alt="Racer">
+                <span style="font-size:10px;">Racer</span>
+              </button>
+              <button class="cartoon-thumb-btn" data-cartoon="robot">
+                <img src="./assets/cartoons/robot.svg" alt="Robot">
+                <span style="font-size:10px;">Robot</span>
+              </button>
+              <button class="cartoon-thumb-btn" data-cartoon="dinosaur">
+                <img src="./assets/cartoons/dinosaur.svg" alt="Dino">
+                <span style="font-size:10px;">Dino</span>
+              </button>
+              <button class="cartoon-thumb-btn" data-cartoon="scholar">
+                <img src="./assets/cartoons/scholar.svg" alt="Scholar">
+                <span style="font-size:10px;">Scholar</span>
+              </button>
+              <button class="cartoon-thumb-btn" data-cartoon="lion_mascot">
+                <img src="./assets/cartoons/lion_mascot.svg" alt="Lion">
+                <span style="font-size:10px;">Lion</span>
+              </button>
+            </div>
+
+            <div style="margin-top:12px;">
+              <label style="font-size:12px;font-weight:600;">Or Upload Student Photo:</label>
+              <input type="file" id="sticker-photo-input" accept="image/*" class="form-control" style="margin-top:4px;">
+            </div>
+
+            <div class="slider-group" style="margin-top:12px;">
+              <div class="slider-header">
+                <span>Avatar Size</span>
+                <span id="sticker-cartoon-size-val">100%</span>
+              </div>
+              <input type="range" id="sticker-cartoon-size" class="slider-control" min="60" max="140" value="100">
+            </div>
+
+            <div class="toggle-row">
+              <span style="font-size:13px;font-weight:600;">Circular Badge Frame</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="sticker-circle-badge" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Single Sticker Zoom Preview Card -->
+          <div class="controls-section">
+            <div class="section-label">Single Sticker Live Zoom (90 × 45 mm)</div>
+            <div id="single-sticker-preview-box" style="display:flex;justify-content:center;padding:10px;background:#F1F5F9;border-radius:6px;">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Full 8-Sticker A4 Sheet Preview -->
+        <div class="preview-panel">
+          <div class="preview-toolbar">
+            <div class="preview-title-badge">
+              <span>🏷️ 8-Sticker A4 Sheet Live Preview (90 × 45 mm each)</span>
+            </div>
+          </div>
+          <div class="a4-viewport-wrapper">
+            <div id="a4-live-sheet-stickers">
+              <!-- Dynamically mirrored onto A4 -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================================================
+         VIEW 3: PASSPORT & VISA PHOTO STUDIO
+         =========================================================== -->
+    <section class="view-container" id="view-passport">
+      <div class="view-header">
+        <div>
+          <h2>Passport & Visa Photo Studio</h2>
+          <p>Sri Lanka Passport Standard (35 × 45 mm) and US Visa (2 × 2 Inch) Multi-Photo Sheets.</p>
+        </div>
+      </div>
+
+      <div class="studio-layout">
+        <div class="controls-card">
+          <div class="controls-section">
+            <div class="section-label">1. Photo Size Standard</div>
+            <div class="preset-grid">
+              <button class="btn-preset active" data-passport-size="sl-passport">
+                <span class="preset-title">SL Passport (35 × 45 mm)</span>
+                <span class="preset-dim">8-Photo Sheet Layout</span>
+              </button>
+              <button class="btn-preset" data-passport-size="us-visa">
+                <span class="preset-title">US Visa (2 × 2 Inch)</span>
+                <span class="preset-dim">6-Photo Sheet Layout</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="controls-section">
+            <div class="section-label">2. Upload Studio Portrait</div>
+            <input type="file" id="passport-photo-input" accept="image/*" class="form-control">
+          </div>
+
+          <div class="controls-section">
+            <div class="section-label">3. Background Tint</div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn-slot-tool active" data-passport-bg="#FFFFFF">White</button>
+              <button class="btn-slot-tool" data-passport-bg="#E0F2FE">Light Blue</button>
+              <button class="btn-slot-tool" data-passport-bg="#F1F5F9">Light Grey</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-panel">
+          <div class="preview-toolbar">
+            <div class="preview-title-badge">
+              <span>📷 1:1 Scale Passport Photo Sheet</span>
+            </div>
+          </div>
+          <div class="a4-viewport-wrapper">
+            <!-- Mirrored onto live sheet -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================================================
+         VIEW 4: FAST BILLING & COUNTER POS
+         =========================================================== -->
+    <section class="view-container" id="view-pos">
+      <div class="view-header">
+        <div>
+          <h2>Bookshop Fast Billing & Counter POS</h2>
+          <p>High-speed retail counter billing, photocopy rates, LKR calculations & instant thermal receipts.</p>
+        </div>
+      </div>
+
+      <div class="studio-layout" style="grid-template-columns: 420px 1fr;">
+        <div class="controls-card">
+          <div class="controls-section">
+            <div class="section-label">Quick Add Common Bookshop Jobs</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+              <button class="btn-preset" data-pos-item="A4 B&W Photocopy" data-pos-price="10">
+                <span class="preset-title">B&W Copy (LKR 10)</span>
+              </button>
+              <button class="btn-preset" data-pos-item="Color Print A4" data-pos-price="50">
+                <span class="preset-title">Color Print (LKR 50)</span>
+              </button>
+              <button class="btn-preset" data-pos-item="A4 Laminating" data-pos-price="120">
+                <span class="preset-title">Laminate A4 (LKR 120)</span>
+              </button>
+              <button class="btn-preset" data-pos-item="NIC Laminating" data-pos-price="60">
+                <span class="preset-title">NIC Laminate (LKR 60)</span>
+              </button>
+              <button class="btn-preset" data-pos-item="Spiral Binding" data-pos-price="180">
+                <span class="preset-title">Binding (LKR 180)</span>
+              </button>
+              <button class="btn-preset" data-pos-item="Name Stickers Sheet" data-pos-price="150">
+                <span class="preset-title">Sticker Sheet (LKR 150)</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="controls-section">
+            <div class="section-label">Add Custom Item</div>
+            <div style="display:flex;gap:6px;">
+              <input type="text" id="pos-custom-name" placeholder="Item name" class="form-control">
+              <input type="number" id="pos-custom-price" placeholder="Price" class="form-control" style="width:100px;">
+              <button id="btn-add-custom-pos" class="btn-print-action" style="padding:6px 12px;">Add</button>
+            </div>
+          </div>
+
+          <div class="controls-section">
+            <div class="section-label">Payment & Tender</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div>
+                <label style="font-size:12px;">Cash Received (LKR):</label>
+                <input type="number" id="pos-cash-input" value="1000" class="form-control" style="font-size:16px;font-weight:bold;">
+              </div>
+              <div>
+                <label style="font-size:12px;">Discount (%):</label>
+                <input type="number" id="pos-discount-input" value="0" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- POS Cart Table & Receipt Summary -->
+        <div class="controls-card">
+          <div class="section-label">Current Counter Bill</div>
+          <table style="width:100%;border-collapse:collapse;margin-top:8px;">
+            <thead>
+              <tr style="border-bottom:2px solid #CBD5E1;font-size:12px;color:#64748B;text-align:left;">
+                <th style="padding:6px;">Item</th>
+                <th style="padding:6px;text-align:right;">Price</th>
+                <th style="padding:6px;text-align:center;">Qty</th>
+                <th style="padding:6px;text-align:right;">Total</th>
+                <th style="padding:6px;text-align:center;">Del</th>
+              </tr>
+            </thead>
+            <tbody id="pos-items-tbody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+
+          <div style="margin-top:20px;padding:16px;background:#F8FAFC;border-radius:8px;border:1px solid #E2E8F0;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:14px;color:#64748B;">Subtotal:</span>
+              <span id="pos-subtotal" style="font-size:14px;font-weight:700;">LKR 0.00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;border-top:1px dashed #CBD5E1;padding-top:8px;">
+              <span style="font-size:18px;font-weight:900;color:#0F172A;">Grand Total:</span>
+              <span id="pos-grand-total" style="font-size:22px;font-weight:900;color:#2563EB;">LKR 0.00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:12px;">
+              <span style="font-size:14px;font-weight:700;color:#10B981;">Change Due:</span>
+              <span id="pos-change-due" style="font-size:16px;font-weight:900;color:#10B981;">LKR 0.00</span>
+            </div>
+            <button onclick="CounterTools.printReceipt()" class="btn-print-action" style="width:100%;justify-content:center;padding:10px;">
+              🖨️ Print Customer Receipt
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================================================
+         VIEW 5: SRI LANKA GOV APPLICATIONS & DOCUMENTS
+         =========================================================== -->
+    <section class="view-container" id="view-gov">
+      <div class="view-header">
+        <div>
+          <h2>Sri Lanka Government Applications & Sinhala Legal Forms</h2>
+          <p>Instant fillable and printable MTA-32, Passport Form K, Rental Agreements & Affidavits.</p>
+        </div>
+      </div>
+      <div id="gov-docs-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- ===========================================================
+         VIEW 6: STUDENT ASSETS & EDUCATION LIBRARY
+         =========================================================== -->
+    <section class="view-container" id="view-edu">
+      <div class="view-header">
+        <div>
+          <h2>Student Assets, Worksheets & Exam Papers</h2>
+          <p>Official Grade 5 scholarship papers, Sinhala Hodiya handwriting sheets, and syllabus diagrams.</p>
+        </div>
+      </div>
+      <div id="edu-assets-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- =============================================================
+       DEDICATED 100% 1:1 SCALE PRINT STAGE (Printed during @media print)
+       ============================================================= -->
+  <div id="print-stage"></div>
+
+  <!-- =============================================================
+       MODAL 1: COMMAND PALETTE (CTRL + K)
+       ============================================================= -->
+  <div class="modal-overlay" id="command-palette-modal">
+    <div class="modal-dialog" style="max-width:580px;">
+      <div style="padding:12px 16px;border-bottom:1px solid #E2E8F0;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:18px;">🔍</span>
+        <input type="text" id="command-palette-input" placeholder="Type a tool, preset, exam paper, or command..." style="width:100%;border:none;outline:none;font-size:15px;background:transparent;">
+        <button class="btn-close-modal">✕</button>
+      </div>
+      <div id="command-palette-results" style="max-height:360px;overflow-y:auto;padding:8px;">
+        <!-- Populated via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================================
+       MODAL 2: ACTIVATE LIFETIME LICENSE
+       ============================================================= -->
+  <div class="modal-overlay" id="activate-license-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>🔑 Activate Full Lifetime License</h3>
+        <button class="btn-close-modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:13px;color:#64748B;margin-bottom:16px;">
+          Enter your one-time activation code to unlock permanent offline printing, remove demo timers, and access all PRO templates.
+        </p>
+        <div class="form-group">
+          <label>Bookshop / Shop Name:</label>
+          <input type="text" id="act-shop-name" class="form-control" placeholder="e.g. Sarasavi Bookshop & Communication">
+        </div>
+        <div class="form-group">
+          <label>Owner Phone Number (Sri Lanka):</label>
+          <input type="text" id="act-owner-phone" class="form-control" placeholder="07X XXX XXXX">
+        </div>
+        <div class="form-group">
+          <label>One-Time Activation Key:</label>
+          <input type="text" id="act-license-code" class="form-control" placeholder="PHP-2027-XXXX-XXXX-XXXX" style="font-family:monospace;font-weight:bold;letter-spacing:1px;">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-slot-tool btn-close-modal" style="padding:8px 16px;">Cancel</button>
+        <button class="btn-print-action" id="btn-submit-activation">Verify & Activate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================================
+       MODAL 3: DISTRIBUTOR KEYGEN PORTAL
+       ============================================================= -->
+  <div class="modal-overlay" id="keygen-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>🛡️ Distributor & POS Dealer Keygen Portal</h3>
+        <button class="btn-close-modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:13px;color:#64748B;margin-bottom:14px;">
+          Generate cryptographically verified one-time lifetime license codes for retail distribution across Sri Lanka.
+        </p>
+        <button id="btn-generate-keygen" class="btn-print-action" style="margin-bottom:14px;">
+          ⚡ Generate Valid Lifetime Key
+        </button>
+        <div class="form-group">
+          <label>Generated Key:</label>
+          <input type="text" id="keygen-output-code" class="form-control" readonly style="font-family:monospace;font-weight:bold;font-size:16px;color:#2563EB;">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-slot-tool btn-close-modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================================
+       MODAL 4: PRINTER CALIBRATION GUIDE
+       ============================================================= -->
+  <div class="modal-overlay" id="calibration-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>⚙️ True 1:1 Millimeter Printer Calibration Guide</h3>
+        <button class="btn-close-modal">✕</button>
+      </div>
+      <div class="modal-body" style="font-size:13.5px;line-height:1.6;color:#334155;">
+        <p>To ensure exact <strong>100% physical millimeter dimensions (85.6 × 54 mm, 90 × 45 mm)</strong> on any standard printer (Epson, Canon, HP):</p>
+        <ol style="margin-left:20px;margin-top:10px;">
+          <li>Press <strong>Ctrl + P</strong> (or click the 1-Click Print button).</li>
+          <li>Set <strong>Destination</strong> to your physical printer (or Save as PDF).</li>
+          <li>Under <strong>More Settings</strong>:
+            <ul style="margin-left:16px;margin-top:4px;">
+              <li>Set <strong>Margins:</strong> <code>None</code> (or <code>0</code>).</li>
+              <li>Set <strong>Scale:</strong> <code>Default</code> or <code>Custom: 100%</code> (Never choose "Fit to Printable Area").</li>
+              <li>Enable <strong>Background Graphics</strong>.</li>
+            </ul>
+          </li>
+          <li>Click <strong>Print</strong>. The physical output matches exact millimeter rulers!</li>
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-print-action btn-close-modal">Understood</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Application Scripts -->
+  <script src="./js/license.js"></script>
+  <script src="./js/nic-cloner.js"></script>
+  <script src="./js/sticker-studio.js"></script>
+  <script src="./js/counter-tools.js"></script>
+  <script src="./js/education-hub.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
