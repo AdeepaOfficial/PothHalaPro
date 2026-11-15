@@ -1,90 +1,210 @@
 /* ==========================================================================
-   PothHalaPro - Exact 1:1 Physical Millimeter Scale Print Engine
-   A4 Dimensions: 210mm x 297mm
+   PothHalaPro - Exact 1:1 True Physical Millimeter Scale Print Engine
+   A4 Dimensions: 210.0mm x 297.0mm
+   Calibrated for Zero-Distortion High-Precision Bookshop & Studio Production
    ========================================================================== */
 
+/* -------------------------------------------------------------
+   PAGE SPECIFICATION & HARDWARE GEOMETRY
+   ------------------------------------------------------------- */
 @page {
   size: A4 portrait;
-  margin: 0mm;
+  margin: 0mm !important;
+  marks: none;
 }
 
+/* Screen Mode: Hide dedicated print stage from desktop viewport */
+@media screen {
+  #print-stage {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   PRINT MEDIA RULES (@media print)
+   ========================================================================== */
 @media print {
-  /* Hide all UI elements, sidebars, buttons, headers */
-  body, html {
-    width: 210mm !important;
-    height: 297mm !important;
+  /* Enforce Strict Millimeter Box Model */
+  *, *::before, *::after {
+    box-sizing: border-box !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Reset Viewport & Suppress Default Headers/Footers */
+  html, body {
+    width: 210.0mm !important;
+    min-width: 210.0mm !important;
+    max-width: 210.0mm !important;
+    height: 297.0mm !important;
+    min-height: 297.0mm !important;
+    max-height: 297.0mm !important;
     margin: 0 !important;
     padding: 0 !important;
     background: #FFFFFF !important;
     color: #000000 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
     overflow: hidden !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Sinhala", Arial, sans-serif !important;
+    image-rendering: -webkit-optimize-contrast !important;
+    image-rendering: crisp-edges !important;
   }
 
-  .no-print,
-  #app-header,
+  /* Completely Hide All Interactive Screen UI Elements */
   #app-sidebar,
+  #app-header,
+  .view-header,
+  .controls-card,
+  .preview-panel,
+  .preview-toolbar,
+  .a4-viewport-wrapper,
   .action-bar,
   .controls-panel,
   .toast-container,
   .modal-overlay,
-  .preview-toolbar {
+  .modal-container,
+  .no-print,
+  button,
+  input,
+  select,
+  .bilingual-toggle,
+  .theme-switcher-wrapper,
+  .demo-timer-badge {
     display: none !important;
+    visibility: hidden !important;
   }
 
-  /* The Printable A4 Sheet */
+  /* -------------------------------------------------------------
+     THE DEDICATED A4 PRINT STAGE
+     Physical A4 Sheet: exactly 210mm x 297mm
+     ------------------------------------------------------------- */
   #print-stage {
     display: block !important;
+    visibility: visible !important;
     position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 210mm !important;
-    height: 297mm !important;
-    margin: 0 !important;
-    padding: 10mm !important;
+    left: 0mm !important;
+    top: 0mm !important;
+    width: 210.0mm !important;
+    max-width: 210.0mm !important;
+    height: 297.0mm !important;
+    max-height: 297.0mm !important;
+    margin: 0mm !important;
+    padding: 8.0mm 10.0mm !important;
     box-sizing: border-box !important;
     background: #FFFFFF !important;
     overflow: hidden !important;
     page-break-inside: avoid !important;
+    break-inside: avoid !important;
     page-break-after: avoid !important;
+    break-after: avoid !important;
   }
 
-  /* Watermark for Demo Mode */
+  /* Unlicensed Demo Watermark */
   .demo-watermark-print {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-35deg);
-    font-size: 42pt;
-    font-weight: 900;
-    color: rgba(220, 38, 38, 0.12);
-    text-transform: uppercase;
-    letter-spacing: 4mm;
-    pointer-events: none;
-    z-index: 9999;
-    white-space: nowrap;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) rotate(-35deg) !important;
+    font-size: 38pt !important;
+    font-weight: 900 !important;
+    color: rgba(220, 38, 38, 0.14) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 4mm !important;
+    pointer-events: none !important;
+    z-index: 9999 !important;
+    white-space: nowrap !important;
+    border: 3px dashed rgba(220, 38, 38, 0.2) !important;
+    padding: 6mm 18mm !important;
   }
 
   /* -------------------------------------------------------------
-     MODULE 1: SMART NIC & DRIVING LICENSE 1:1 SCALE LAYOUTS
+     A4 SHEET REGISTRATION & PHYSICAL SCALE CALIBRATION RULER
      ------------------------------------------------------------- */
-  .nic-print-container {
+  .sheet-registration-marks {
+    position: absolute;
     width: 100%;
     height: 100%;
-    position: relative;
-    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    pointer-events: none;
   }
 
-  /* Card Item Base */
+  /* Registration Crosshairs on A4 Corners */
+  .reg-mark {
+    position: absolute;
+    width: 6mm;
+    height: 6mm;
+  }
+  .reg-mark::before {
+    content: "";
+    position: absolute;
+    left: 2.85mm;
+    top: 0;
+    width: 0.3mm;
+    height: 6mm;
+    background: #000000;
+  }
+  .reg-mark::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2.85mm;
+    width: 6mm;
+    height: 0.3mm;
+    background: #000000;
+  }
+  .reg-mark-tl { top: 3mm; left: 3mm; }
+  .reg-mark-tr { top: 3mm; right: 3mm; }
+  .reg-mark-bl { bottom: 3mm; left: 3mm; }
+  .reg-mark-br { bottom: 3mm; right: 3mm; }
+
+  /* 1:1 Scale Verification Bar (Physical Quality Assurance) */
+  .print-scale-verifier {
+    position: absolute !important;
+    bottom: 4.0mm !important;
+    left: 10.0mm !important;
+    right: 10.0mm !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-size: 5.5pt !important;
+    color: #475569 !important;
+    border-top: 0.2mm solid #CBD5E1 !important;
+    padding-top: 1.5mm !important;
+  }
+
+  .scale-ruler-bar {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 2mm !important;
+  }
+
+  .scale-50mm-box {
+    display: inline-block !important;
+    width: 50.0mm !important;
+    height: 2.5mm !important;
+    border: 0.25mm solid #000000 !important;
+    background: repeating-linear-gradient(90deg, #000 0mm, #000 5mm, #FFF 5mm, #FFF 10mm) !important;
+  }
+
+  /* -------------------------------------------------------------
+     MODULE 1: SMART NIC & DRIVING LICENSE 1:1 PHYSICAL SCALE
+     ------------------------------------------------------------- */
+  .nic-print-container {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Card Item Container */
   .print-card-item {
-    box-sizing: border-box;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #FFFFFF;
-    overflow: hidden;
+    box-sizing: border-box !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #FFFFFF !important;
+    overflow: visible !important; /* Allow crop ticks to render exteriorly */
   }
 
   .print-card-item img,
@@ -93,149 +213,256 @@
     height: 100% !important;
     object-fit: fill !important;
     display: block !important;
+    image-rendering: -webkit-optimize-contrast !important;
   }
 
-  /* Cutting Guide lines */
-  .has-cut-guides {
-    border: 0.25mm dashed #475569 !important;
-  }
-
-  .has-cut-guides::after {
-    content: "✂";
-    position: absolute;
-    top: -3.5mm;
-    right: -3.5mm;
-    font-size: 8pt;
-    color: #64748B;
-    background: #FFFFFF;
-    padding: 0 0.5mm;
-  }
-
-  /* Specific Card Sizes in Millimeters */
+  /* EXACT PHYSICAL CARD DIMENSIONS (ISO ID-1 & SRI LANKA FORMATS) */
   .size-id1 {
     width: 85.6mm !important;
+    min-width: 85.6mm !important;
+    max-width: 85.6mm !important;
     height: 54.0mm !important;
+    min-height: 54.0mm !important;
+    max-height: 54.0mm !important;
   }
 
   .size-classic-nic {
     width: 100.0mm !important;
+    min-width: 100.0mm !important;
+    max-width: 100.0mm !important;
     height: 65.0mm !important;
+    min-height: 65.0mm !important;
+    max-height: 65.0mm !important;
   }
 
   .size-postal-id {
     width: 95.0mm !important;
+    min-width: 95.0mm !important;
+    max-width: 95.0mm !important;
     height: 60.0mm !important;
-  }
-
-  /* Mode 1: Side by Side (Horizontal Centered on A4) */
-  .layout-side-by-side {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 12mm;
-    padding-top: 50mm;
-  }
-
-  /* Mode 2: Stacked (Vertical Centered on A4) */
-  .layout-stacked {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 15mm;
-    padding-top: 35mm;
-  }
-
-  /* Mode 3: Fold & Laminate (Back-to-back with a central fold line) */
-  .layout-fold-laminate {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 40mm;
-  }
-
-  .layout-fold-laminate .fold-line {
-    width: 100mm;
-    height: 0.3mm;
-    border-top: 0.35mm dashed #1E293B;
-    margin: 0;
-    position: relative;
-  }
-
-  .layout-fold-laminate .fold-line::before {
-    content: "FOLD HERE (නමන්න) ✂";
-    position: absolute;
-    right: -25mm;
-    top: -2.5mm;
-    font-size: 6pt;
-    font-family: Arial, sans-serif;
-    color: #475569;
-  }
-
-  /* Mode 4: 4-Copy Eco (4 Sets of Front & Back to save A4 sheet paper) */
-  .layout-4copy-eco {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    grid-template-rows: repeat(4, auto);
-    gap: 6mm 10mm;
-    justify-content: center;
-    align-content: center;
-    padding-top: 8mm;
+    min-height: 60.0mm !important;
+    max-height: 60.0mm !important;
   }
 
   /* -------------------------------------------------------------
-     MODULE 2: NAME STICKER STUDIO (8-STICKER A4 SHEET)
+     HIGH-PRECISION CUTTING MARKS (CROP TICKS & GUIDES)
+     Hairline 0.15mm stroke positioned exterior to printable boundary
+     ------------------------------------------------------------- */
+  .has-cut-guides {
+    border: 0.2mm dashed #475569 !important;
+  }
+
+  /* Top-Right Scissors Badge */
+  .has-cut-guides::after {
+    content: "✂" !important;
+    position: absolute !important;
+    top: -3.2mm !important;
+    right: -3.2mm !important;
+    font-size: 7.5pt !important;
+    color: #1E293B !important;
+    background: #FFFFFF !important;
+    padding: 0 0.5mm !important;
+    line-height: 1 !important;
+    z-index: 10 !important;
+  }
+
+  /* Exterior Precision Corner Crop Marks (L-Marks for Trimmer/Scissors) */
+  .print-card-item.with-crop-marks::before {
+    content: "" !important;
+    position: absolute !important;
+    top: -2.5mm !important;
+    left: -2.5mm !important;
+    width: 5.0mm !important;
+    height: 5.0mm !important;
+    border-top: 0.25mm solid #000000 !important;
+    border-left: 0.25mm solid #000000 !important;
+    pointer-events: none !important;
+  }
+
+  /* Bottom-Right Crop Mark */
+  .print-card-item.with-crop-marks .crop-mark-br {
+    position: absolute !important;
+    bottom: -2.5mm !important;
+    right: -2.5mm !important;
+    width: 5.0mm !important;
+    height: 5.0mm !important;
+    border-bottom: 0.25mm solid #000000 !important;
+    border-right: 0.25mm solid #000000 !important;
+    pointer-events: none !important;
+  }
+
+  /* -------------------------------------------------------------
+     NIC LAYOUT MODE 1: SIDE-BY-SIDE (HORIZONTAL ALIGNMENT)
+     ------------------------------------------------------------- */
+  .layout-side-by-side {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 12.0mm !important;
+    padding-top: 55.0mm !important;
+  }
+
+  /* -------------------------------------------------------------
+     NIC LAYOUT MODE 2: STACKED (VERTICAL CENTERED)
+     ------------------------------------------------------------- */
+  .layout-stacked {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 16.0mm !important;
+    padding-top: 38.0mm !important;
+  }
+
+  /* -------------------------------------------------------------
+     NIC LAYOUT MODE 3: FOLD & LAMINATE (STRICT LAMINATION CALIBRATION)
+     Back-to-back with central folding axis and pouch allowances
+     ------------------------------------------------------------- */
+  .layout-fold-laminate {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding-top: 42.0mm !important;
+    position: relative !important;
+  }
+
+  /* Outer Lamination Pouch Boundary Guide (3mm clear plastic heat-seal margin) */
+  .layout-fold-laminate .lamination-pouch-boundary {
+    position: absolute !important;
+    border: 0.25mm dotted #94A3B8 !important;
+    padding: 3.0mm !important;
+    pointer-events: none !important;
+    box-sizing: content-box !important;
+  }
+
+  /* Center Fold Axis (Hairline Dashed Line with Scoring Notch Ticks) */
+  .layout-fold-laminate .fold-line {
+    width: 110.0mm !important;
+    height: 0.0mm !important;
+    border-top: 0.3mm dashed #0F172A !important;
+    margin: 0 !important;
+    position: relative !important;
+  }
+
+  /* Left/Right Bilingual Fold Instructions */
+  .layout-fold-laminate .fold-line::before {
+    content: "◀ FOLD HERE (නැමුම් රේඛාව) ✂" !important;
+    position: absolute !important;
+    left: -32.0mm !important;
+    top: -2.8mm !important;
+    font-size: 6.5pt !important;
+    font-weight: 700 !important;
+    font-family: Arial, sans-serif !important;
+    color: #0F172A !important;
+    white-space: nowrap !important;
+  }
+
+  .layout-fold-laminate .fold-line::after {
+    content: "✂ (LAMINATE SPINE) ▶" !important;
+    position: absolute !important;
+    right: -28.0mm !important;
+    top: -2.8mm !important;
+    font-size: 6.5pt !important;
+    font-weight: 700 !important;
+    font-family: Arial, sans-serif !important;
+    color: #0F172A !important;
+    white-space: nowrap !important;
+  }
+
+  /* Central Fold Notch Markers for Precision Bone Folder / Ruler Alignment */
+  .layout-fold-laminate .fold-notch-left,
+  .layout-fold-laminate .fold-notch-right {
+    position: absolute !important;
+    width: 3.0mm !important;
+    height: 0.3mm !important;
+    background: #000000 !important;
+  }
+  .layout-fold-laminate .fold-notch-left { left: -4.0mm !important; top: -0.15mm !important; }
+  .layout-fold-laminate .fold-notch-right { right: -4.0mm !important; top: -0.15mm !important; }
+
+  /* -------------------------------------------------------------
+     NIC LAYOUT MODE 4: 4-COPY ECO (A4 PAPER CONSERVATION)
+     4 Sets of Front & Back (8 card surfaces)
+     ------------------------------------------------------------- */
+  .layout-4copy-eco {
+    display: grid !important;
+    grid-template-columns: repeat(2, auto) !important;
+    grid-template-rows: repeat(4, auto) !important;
+    gap: 5.0mm 8.0mm !important;
+    justify-content: center !important;
+    align-content: center !important;
+    padding-top: 10.0mm !important;
+  }
+
+  /* -------------------------------------------------------------
+     MODULE 2: SCHOOL NAME STICKER STUDIO (8-STICKER A4 SHEET)
      8 stickers per sheet: 2 columns x 4 rows
-     Each sticker: exactly 90mm x 45mm
+     Each sticker: exactly 90.0mm x 45.0mm
+     Total Grid: 180mm x 180mm (Centered with balanced margins)
      ------------------------------------------------------------- */
   .sticker-print-grid {
     display: grid !important;
-    grid-template-columns: repeat(2, 90mm) !important;
-    grid-template-rows: repeat(4, 45mm) !important;
-    gap: 5mm 10mm !important;
+    grid-template-columns: repeat(2, 90.0mm) !important;
+    grid-template-rows: repeat(4, 45.0mm) !important;
+    gap: 4.0mm 8.0mm !important;
     justify-content: center !important;
     align-content: center !important;
-    width: 190mm !important;
-    margin: 5mm auto !important;
+    width: 190.0mm !important;
+    margin: 6.0mm auto !important;
     box-sizing: border-box !important;
   }
 
   .print-sticker-card {
-    width: 90mm !important;
-    height: 45mm !important;
+    width: 90.0mm !important;
+    min-width: 90.0mm !important;
+    max-width: 90.0mm !important;
+    height: 45.0mm !important;
+    min-height: 45.0mm !important;
+    max-height: 45.0mm !important;
     box-sizing: border-box !important;
     position: relative !important;
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    padding: 3mm 4mm !important;
-    border-radius: 2mm !important;
+    padding: 3.0mm 4.0mm !important;
+    border-radius: 2.0mm !important;
     overflow: hidden !important;
-    border: 0.25mm solid #E2E8F0 !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Subtle Hairline Trim Border for Sticker Peeling & Cutting */
+  .sticker-print-grid .print-sticker-card {
+    outline: 0.15mm solid rgba(0, 0, 0, 0.15) !important;
   }
 
   /* -------------------------------------------------------------
      MODULE 3: PASSPORT / VISA PHOTO STUDIO
-     35mm x 45mm grid (8 photos on A4)
+     35.0mm x 45.0mm grid (8 photos on A4)
+     Total Block: 140.0mm x 90.0mm
      ------------------------------------------------------------- */
   .passport-print-grid {
     display: grid !important;
-    grid-template-columns: repeat(4, 35mm) !important;
-    grid-template-rows: repeat(2, 45mm) !important;
-    gap: 4mm 6mm !important;
+    grid-template-columns: repeat(4, 35.0mm) !important;
+    grid-template-rows: repeat(2, 45.0mm) !important;
+    gap: 3.5mm 5.0mm !important;
     justify-content: center !important;
     align-content: center !important;
-    padding-top: 40mm !important;
+    padding-top: 45.0mm !important;
   }
 
   .passport-photo-item {
-    width: 35mm !important;
-    height: 45mm !important;
+    width: 35.0mm !important;
+    min-width: 35.0mm !important;
+    max-width: 35.0mm !important;
+    height: 45.0mm !important;
+    min-height: 45.0mm !important;
+    max-height: 45.0mm !important;
     box-sizing: border-box !important;
-    border: 0.2mm solid #CBD5E1 !important;
+    border: 0.15mm solid #94A3B8 !important;
     overflow: hidden !important;
+    position: relative !important;
   }
 
   .passport-photo-item img,
@@ -243,17 +470,66 @@
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
+    display: block !important;
+  }
+
+  /* Corner Hairline Cutting Ticks for Passport Photos */
+  .passport-photo-item::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 0.1mm solid rgba(0, 0, 0, 0.25) !important;
+    pointer-events: none !important;
   }
 
   /* -------------------------------------------------------------
      MODULE 3: FAST BILLING COUNTER RECEIPT
+     Support for 80mm standard and 58mm mini POS receipts
      ------------------------------------------------------------- */
-  .bill-print-card {
-    width: 80mm !important;
-    margin: 10mm auto !important;
-    font-family: 'Courier New', monospace !important;
-    font-size: 9pt !important;
-    padding: 4mm !important;
-    border: 0.3mm solid #000 !important;
+  .bill-print-card,
+  .thermal-receipt-80mm {
+    width: 80.0mm !important;
+    max-width: 80.0mm !important;
+    margin: 6.0mm auto !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 8.5pt !important;
+    line-height: 1.35 !important;
+    padding: 3.5mm !important;
+    border: 0.25mm solid #000000 !important;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+
+  .thermal-receipt-58mm {
+    width: 58.0mm !important;
+    max-width: 58.0mm !important;
+    margin: 6.0mm auto !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 8pt !important;
+    line-height: 1.3 !important;
+    padding: 2.5mm !important;
+    border: 0.25mm solid #000000 !important;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+
+  /* -------------------------------------------------------------
+     DOCUMENTS & SRI LANKA GOVERNMENT APPLICATION FORMS
+     Strict 1:1 Clean Document Rendering
+     ------------------------------------------------------------- */
+  .gov-doc-page,
+  .edu-worksheet-page {
+    width: 190.0mm !important;
+    margin: 0 auto !important;
+    font-family: "Noto Sans Sinhala", -apple-system, Arial, sans-serif !important;
+    color: #000000 !important;
+    line-height: 1.45 !important;
+  }
+
+  .gov-doc-header {
+    border-bottom: 0.4mm solid #000000 !important;
+    padding-bottom: 3.0mm !important;
+    margin-bottom: 5.0mm !important;
+    text-align: center !important;
   }
 }
