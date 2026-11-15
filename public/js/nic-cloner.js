@@ -245,10 +245,10 @@ const NicCloner = (() => {
       ctx.strokeRect(4, 4, targetW - 8, targetH - 8);
       ctx.setLineDash([]);
       ctx.fillStyle = '#94A3B8';
-      ctx.font = '14px Arial, sans-serif';
+      ctx.font = 'bold 15px "Noto Sans Sinhala", "Iskoola Pota", "Nirmala UI", Arial, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('Drop / Select Document Image', targetW / 2, targetH / 2);
+      ctx.fillText('Drop / Select Document Image (ලේඛනය තෝරන්න)', targetW / 2, targetH / 2);
       return canvas;
     }
 

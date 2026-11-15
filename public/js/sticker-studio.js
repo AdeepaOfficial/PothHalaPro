@@ -28,6 +28,9 @@ const StickerStudio = (() => {
     }
   };
 
+  // Optimized Sinhala Cross-Platform Font Fallbacks
+  const SINHALA_FONT_STACK = "'Noto Sans Sinhala', 'Iskoola Pota', 'Nirmala UI', 'Sinhala Sangam MN', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+
   // Modern Template Definitions
   const TEMPLATES = {
     // Standard Templates
@@ -40,7 +43,7 @@ const StickerStudio = (() => {
       subColor: '#38BDF8',
       accentColor: '#4ADE80',
       border: '2px solid #38BDF8',
-      font: "'Segoe UI', sans-serif"
+      font: SINHALA_FONT_STACK
     },
     'royal-gold': {
       id: 'royal-gold',
@@ -51,7 +54,7 @@ const StickerStudio = (() => {
       subColor: '#FDE047',
       accentColor: '#FACC15',
       border: '2px solid #EAB308',
-      font: "'Georgia', serif"
+      font: "'Georgia', " + SINHALA_FONT_STACK
     },
     'kawaii-pink': {
       id: 'kawaii-pink',
@@ -62,7 +65,7 @@ const StickerStudio = (() => {
       subColor: '#DB2777',
       accentColor: '#F472B6',
       border: '2px solid #F472B6',
-      font: "'Segoe UI', sans-serif"
+      font: SINHALA_FONT_STACK
     },
     'turbo-orange': {
       id: 'turbo-orange',
@@ -73,7 +76,7 @@ const StickerStudio = (() => {
       subColor: '#C2410C',
       accentColor: '#EA580C',
       border: '2px solid #F97316',
-      font: "'Segoe UI', sans-serif"
+      font: SINHALA_FONT_STACK
     },
     // PRO Templates (Unlocked with Lifetime License)
     'galactic-pro': {
@@ -85,7 +88,7 @@ const StickerStudio = (() => {
       subColor: '#818CF8',
       accentColor: '#C084FC',
       border: '2px solid #818CF8',
-      font: "'Segoe UI', sans-serif"
+      font: SINHALA_FONT_STACK
     },
     'vintage-pro': {
       id: 'vintage-pro',
@@ -96,7 +99,7 @@ const StickerStudio = (() => {
       subColor: '#713F12',
       accentColor: '#A16207',
       border: '2px dashed #CA8A04',
-      font: "'Georgia', serif"
+      font: "'Georgia', " + SINHALA_FONT_STACK
     },
     'minimalist-pro': {
       id: 'minimalist-pro',
@@ -107,7 +110,7 @@ const StickerStudio = (() => {
       subColor: '#475569',
       accentColor: '#2563EB',
       border: '2px solid #0F172A',
-      font: "'Segoe UI', sans-serif"
+      font: SINHALA_FONT_STACK
     },
     'heritage-pro': {
       id: 'heritage-pro',
@@ -118,7 +121,7 @@ const StickerStudio = (() => {
       subColor: '#FDE047',
       accentColor: '#FACC15',
       border: '2px solid #FACC15',
-      font: "'Noto Sans Sinhala', 'Segoe UI', sans-serif"
+      font: SINHALA_FONT_STACK
     }
   };
 
@@ -336,20 +339,21 @@ const StickerStudio = (() => {
         </div>
 
         <!-- Text Details Column -->
-        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; line-height: 1.25;">
+        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; line-height: 1.45; font-family: ${tmpl.font};">
           <!-- Student Name -->
-          <div style="font-size: 11pt; font-weight: 800; color: ${tmpl.textColor}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+          <div style="font-size: 11pt; font-weight: 800; color: ${tmpl.textColor}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-bottom: 1px;">
             ${studentName}
           </div>
 
           <!-- School Name -->
-          <div style="font-size: 7.5pt; font-weight: 600; color: ${tmpl.subColor}; margin-top: 1mm; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+          <div style="font-size: 7.5pt; font-weight: 600; color: ${tmpl.subColor}; margin-top: 1mm; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-bottom: 1px;">
             ${schoolName}
           </div>
 
           <!-- Grade & Class -->
-          <div style="font-size: 7.5pt; font-weight: 700; color: ${tmpl.accentColor}; margin-top: 0.8mm;">
+          <div style="font-size: 7.5pt; font-weight: 700; color: ${tmpl.accentColor}; margin-top: 0.8mm; padding-bottom: 1px;">
             ${gradeLabel}${sectionLabel}
+          </div>
           </div>
 
           <!-- Subject Pill -->
