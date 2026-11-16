@@ -10,9 +10,12 @@
   <link rel="stylesheet" href="./css/print.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <!-- Backdrop for Mobile Off-Canvas Sidebar -->
+  <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
 
   <!-- =============================================================
        APP SIDEBAR (Collapsible 3-Hub Suite)
@@ -23,43 +26,49 @@
         <div class="brand-logo-icon">P</div>
         <div class="brand-text">
           <h1>PothHalaPro</h1>
-          <span>Print & Bookshop Studio</span>
+          <span class="sinhala-subtext">මුද්‍රණ &amp; සන්නිවේදන ස්ටුඩියෝ</span>
         </div>
       </div>
     </div>
 
     <div class="sidebar-scroll">
       <!-- Hub 1: Cards & Production -->
-      <div class="nav-section-title">Cards & Production</div>
-      <a class="nav-item active" data-nav-view="view-nic">
+      <div class="nav-section-title">Cards &amp; Production</div>
+      <a class="nav-item active" data-nav-view="view-nic" title="Shortcut: F2">
         <span class="icon">🪪</span>
-        <span>NIC & License Cloner</span>
+        <span>NIC &amp; License Cloner</span>
+        <span class="nav-shortcut-badge">F2</span>
       </a>
-      <a class="nav-item" data-nav-view="view-stickers">
+      <a class="nav-item" data-nav-view="view-stickers" title="Shortcut: F3">
         <span class="icon">🏷️</span>
         <span>Name Sticker Studio</span>
+        <span class="nav-shortcut-badge">F3</span>
       </a>
-      <a class="nav-item" data-nav-view="view-passport">
+      <a class="nav-item" data-nav-view="view-passport" title="Shortcut: F4">
         <span class="icon">📷</span>
-        <span>Passport & Visa Photos</span>
+        <span>Passport &amp; Visa Photos</span>
+        <span class="nav-shortcut-badge">F4</span>
       </a>
-      <a class="nav-item" data-nav-view="view-pos">
+      <a class="nav-item" data-nav-view="view-pos" title="Shortcut: F8">
         <span class="icon">🧾</span>
-        <span>Fast Billing & Counter POS</span>
+        <span>Fast Billing &amp; Counter POS</span>
+        <span class="nav-shortcut-badge">F8</span>
       </a>
 
       <!-- Hub 2: Documents & Gov Forms -->
-      <div class="nav-section-title">Documents & Gov Forms</div>
-      <a class="nav-item" data-nav-view="view-gov">
+      <div class="nav-section-title">Documents &amp; Gov Forms</div>
+      <a class="nav-item" data-nav-view="view-gov" title="Shortcut: F6">
         <span class="icon">📋</span>
         <span>Sri Lanka Gov Applications</span>
+        <span class="nav-shortcut-badge">F6</span>
       </a>
 
       <!-- Hub 3: Student Assets & Education -->
-      <div class="nav-section-title">Student Assets & Library</div>
-      <a class="nav-item" data-nav-view="view-edu">
+      <div class="nav-section-title">Student Assets &amp; Library</div>
+      <a class="nav-item" data-nav-view="view-edu" title="Shortcut: F7">
         <span class="icon">📚</span>
-        <span>Exam Papers & Worksheets</span>
+        <span>Exam Papers &amp; Worksheets</span>
+        <span class="nav-shortcut-badge">F7</span>
       </a>
     </div>
 
@@ -88,9 +97,16 @@
     <!-- Top Action & Status Header -->
     <header id="app-header">
       <div class="header-left">
-        <button class="btn-quick-search">
-          <span>🔍 Quick Search Tools & Forms</span>
+        <button id="btn-sidebar-toggle" class="btn-sidebar-toggle" aria-label="Toggle navigation drawer">
+          <span>☰</span>
+        </button>
+        <button class="btn-quick-search" title="Quick Search Tools &amp; Forms (Ctrl + K)">
+          <span>🔍 Quick Search Tools &amp; Forms</span>
           <span class="kbd-shortcut">Ctrl + K</span>
+        </button>
+        <button id="btn-shortcuts-hint" class="btn-shortcuts-hint" title="Interactive Keyboard Shortcuts (? / F1)">
+          <span>⌨️ Shortcuts</span>
+          <span class="kbd-shortcut">? / F1</span>
         </button>
       </div>
 
@@ -124,9 +140,10 @@
         </button>
 
         <!-- 1-Click Print A4 Action Button -->
-        <button class="btn-print-action" id="btn-global-print">
+        <button class="btn-print-action" id="btn-global-print" title="Print Current View (Ctrl + P)">
           <span>🖨️</span>
           <span>1-Click Print A4 (100% Scale)</span>
+          <span class="kbd-shortcut-light">Ctrl + P</span>
         </button>
       </div>
     </header>
@@ -552,99 +569,188 @@
     </section>
 
     <!-- ===========================================================
-         VIEW 4: FAST BILLING & COUNTER POS
+         VIEW 4: FAST BILLING & TOUCHSCREEN COUNTER POS
          =========================================================== -->
     <section class="view-container" id="view-pos">
       <div class="view-header">
         <div>
-          <h2>Bookshop Fast Billing & Counter POS</h2>
-          <p>High-speed retail counter billing, photocopy rates, LKR calculations & instant thermal receipts.</p>
+          <h2>Bookshop Fast Billing &amp; Touchscreen Counter POS</h2>
+          <p class="sinhala-text">පොත්හල සහ සන්නිවේදන කවුන්ටර බිල්පත් පද්ධතිය - Fast retail billing, photocopy rates, LKR calculations &amp; instant thermal receipts.</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <!-- Thermal receipt width toggle -->
+          <div class="receipt-format-toggle" title="Select Thermal Receipt Printer Roll Width">
+            <button class="btn-receipt-format active" data-receipt-width="80mm">80mm Standard POS</button>
+            <button class="btn-receipt-format" data-receipt-width="58mm">58mm Mini POS</button>
+          </div>
+          <button id="btn-clear-pos-cart" class="btn-slot-tool" style="padding:6px 12px;color:#EF4444;border-color:#FCA5A5;font-size:12.5px;" title="Clear Cart (Alt + C)">
+            🗑️ Clear Bill <span class="kbd-shortcut">Alt + C</span>
+          </button>
         </div>
       </div>
 
-      <div class="studio-layout" style="grid-template-columns: 420px 1fr;">
+      <div class="studio-layout" style="grid-template-columns: 460px 1fr;">
+        <!-- Left: Quick Touch Items & Tender Controls -->
         <div class="controls-card">
-          <div class="controls-section">
-            <div class="section-label">Quick Add Common Bookshop Jobs</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-              <button class="btn-preset" data-pos-item="A4 B&W Photocopy" data-pos-price="10">
-                <span class="preset-title">B&W Copy (LKR 10)</span>
-              </button>
-              <button class="btn-preset" data-pos-item="Color Print A4" data-pos-price="50">
-                <span class="preset-title">Color Print (LKR 50)</span>
-              </button>
-              <button class="btn-preset" data-pos-item="A4 Laminating" data-pos-price="120">
-                <span class="preset-title">Laminate A4 (LKR 120)</span>
-              </button>
-              <button class="btn-preset" data-pos-item="NIC Laminating" data-pos-price="60">
-                <span class="preset-title">NIC Laminate (LKR 60)</span>
-              </button>
-              <button class="btn-preset" data-pos-item="Spiral Binding" data-pos-price="180">
-                <span class="preset-title">Binding (LKR 180)</span>
-              </button>
-              <button class="btn-preset" data-pos-item="Name Stickers Sheet" data-pos-price="150">
-                <span class="preset-title">Sticker Sheet (LKR 150)</span>
-              </button>
+          <!-- Category Tabs -->
+          <div class="pos-cat-tabs" id="pos-cat-tabs">
+            <button class="pos-cat-pill active" data-pos-cat="all">All Items (සියල්ල)</button>
+            <button class="pos-cat-pill" data-pos-cat="prints">Copies &amp; Prints (පිටපත්)</button>
+            <button class="pos-cat-pill" data-pos-cat="lamination">Laminating &amp; Binding</button>
+            <button class="pos-cat-pill" data-pos-cat="id-cards">Cards &amp; Photos</button>
+            <button class="pos-cat-pill" data-pos-cat="stationery">Stationery &amp; Forms</button>
+          </div>
+
+          <!-- Touchscreen Quick Add Grid -->
+          <div class="controls-section" style="padding-bottom:12px;">
+            <div class="section-label">
+              <span>Touch &amp; Tap Items to Add</span>
+              <span style="font-size:10.5px;color:#94A3B8;text-transform:none;">Keyboard Shortcuts 1-6</span>
+            </div>
+            <div class="pos-touch-grid" id="pos-touch-grid">
+              <!-- Dynamically populated from POS catalog -->
             </div>
           </div>
 
+          <!-- Custom Item Entry -->
           <div class="controls-section">
-            <div class="section-label">Add Custom Item</div>
+            <div class="section-label">
+              <span>Add Custom Job / Item</span>
+              <span class="kbd-shortcut">Alt + Q</span>
+            </div>
             <div style="display:flex;gap:6px;">
-              <input type="text" id="pos-custom-name" placeholder="Item name" class="form-control">
-              <input type="number" id="pos-custom-price" placeholder="Price" class="form-control" style="width:100px;">
-              <button id="btn-add-custom-pos" class="btn-print-action" style="padding:6px 12px;">Add</button>
+              <input type="text" id="pos-custom-name" placeholder="Item name (e.g. Spiral Cover)" class="form-control" style="font-size:13px;">
+              <input type="number" id="pos-custom-price" placeholder="Price (LKR)" class="form-control" style="width:115px;font-size:13px;">
+              <button id="btn-add-custom-pos" class="btn-print-action" style="padding:6px 14px;white-space:nowrap;">
+                + Add
+              </button>
             </div>
           </div>
 
+          <!-- Payment Mode Selection -->
           <div class="controls-section">
-            <div class="section-label">Payment & Tender</div>
+            <div class="section-label">Payment Method</div>
+            <div class="pos-pay-modes">
+              <button class="btn-pay-mode active" data-pay-mode="cash">
+                <span style="font-size:16px;">💵</span>
+                <span>Cash (මුදල්)</span>
+              </button>
+              <button class="btn-pay-mode" data-pay-mode="lankaqr">
+                <span style="font-size:16px;">📱</span>
+                <span>LankaQR / FriMi</span>
+              </button>
+              <button class="btn-pay-mode" data-pay-mode="card">
+                <span style="font-size:16px;">💳</span>
+                <span>Card (කාඩ්පත්)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Cash Received & Quick Tenders -->
+          <div class="controls-section">
+            <div class="section-label">
+              <span>Cash Received &amp; Discount</span>
+              <span style="font-size:11px;color:#2563EB;">LKR Currency</span>
+            </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
               <div>
-                <label style="font-size:12px;">Cash Received (LKR):</label>
-                <input type="number" id="pos-cash-input" value="1000" class="form-control" style="font-size:16px;font-weight:bold;">
+                <label style="font-size:12px;font-weight:600;display:block;margin-bottom:4px;">Cash Tendered (LKR):</label>
+                <input type="number" id="pos-cash-input" value="1000" class="form-control" style="font-size:17px;font-weight:800;color:#0F172A;">
               </div>
               <div>
-                <label style="font-size:12px;">Discount (%):</label>
-                <input type="number" id="pos-discount-input" value="0" class="form-control">
+                <label style="font-size:12px;font-weight:600;display:block;margin-bottom:4px;">Discount (%):</label>
+                <input type="number" id="pos-discount-input" value="0" min="0" max="100" class="form-control" style="font-size:16px;font-weight:600;">
               </div>
             </div>
+
+            <!-- Quick Cash Tender Touch Buttons -->
+            <div style="margin-top:10px;">
+              <div style="font-size:11px;color:#64748B;margin-bottom:4px;font-weight:600;">Quick Tender Shortcuts:</div>
+              <div class="pos-tender-grid">
+                <button class="btn-tender-quick" data-tender="exact" title="Set exact total">Exact [Alt+E]</button>
+                <button class="btn-tender-quick" data-tender="add50">+50</button>
+                <button class="btn-tender-quick" data-tender="add100">+100</button>
+                <button class="btn-tender-quick" data-tender="add500">+500</button>
+                <button class="btn-tender-quick" data-tender="add1000">+1,000 [Alt+T]</button>
+                <button class="btn-tender-quick" data-tender="add5000">+5,000</button>
+              </div>
+            </div>
+
+            <!-- Optional Touchscreen Numpad -->
+            <details style="margin-top:10px;font-size:12px;">
+              <summary style="cursor:pointer;color:#2563EB;font-weight:600;user-select:none;">🔢 Show Touchscreen Keypad</summary>
+              <div class="pos-numpad-container">
+                <div class="pos-numpad">
+                  <button class="btn-numpad" data-num="7">7</button>
+                  <button class="btn-numpad" data-num="8">8</button>
+                  <button class="btn-numpad" data-num="9">9</button>
+                  <button class="btn-numpad" data-num="4">4</button>
+                  <button class="btn-numpad" data-num="5">5</button>
+                  <button class="btn-numpad" data-num="6">6</button>
+                  <button class="btn-numpad" data-num="1">1</button>
+                  <button class="btn-numpad" data-num="2">2</button>
+                  <button class="btn-numpad" data-num="3">3</button>
+                  <button class="btn-numpad action-btn" data-num="clear">Clear</button>
+                  <button class="btn-numpad" data-num="0">0</button>
+                  <button class="btn-numpad action-btn" data-num="back">⌫</button>
+                </div>
+              </div>
+            </details>
           </div>
         </div>
 
-        <!-- POS Cart Table & Receipt Summary -->
-        <div class="controls-card">
-          <div class="section-label">Current Counter Bill</div>
-          <table style="width:100%;border-collapse:collapse;margin-top:8px;">
-            <thead>
-              <tr style="border-bottom:2px solid #CBD5E1;font-size:12px;color:#64748B;text-align:left;">
-                <th style="padding:6px;">Item</th>
-                <th style="padding:6px;text-align:right;">Price</th>
-                <th style="padding:6px;text-align:center;">Qty</th>
-                <th style="padding:6px;text-align:right;">Total</th>
-                <th style="padding:6px;text-align:center;">Del</th>
-              </tr>
-            </thead>
-            <tbody id="pos-items-tbody">
-              <!-- Rendered via JS -->
-            </tbody>
-          </table>
+        <!-- Right: Active Bill Table, Totals & Actions -->
+        <div class="controls-card" style="display:flex;flex-direction:column;">
+          <div class="section-label">
+            <span>Current Counter Bill</span>
+            <span id="pos-item-count-badge" style="font-size:11px;background:#EFF6FF;color:#2563EB;padding:2px 8px;border-radius:10px;font-weight:700;">4 items</span>
+          </div>
 
-          <div style="margin-top:20px;padding:16px;background:#F8FAFC;border-radius:8px;border:1px solid #E2E8F0;">
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-              <span style="font-size:14px;color:#64748B;">Subtotal:</span>
+          <div style="flex:1;overflow-x:auto;max-height:360px;overflow-y:auto;border:1px solid #E2E8F0;border-radius:6px;margin-top:8px;">
+            <table style="width:100%;border-collapse:collapse;">
+              <thead style="background:#F8FAFC;position:sticky;top:0;z-index:2;">
+                <tr style="border-bottom:2px solid #CBD5E1;font-size:12px;color:#475569;text-align:left;">
+                  <th style="padding:8px 10px;">Item Description</th>
+                  <th style="padding:8px;text-align:right;">Rate (LKR)</th>
+                  <th style="padding:8px;text-align:center;">Quantity</th>
+                  <th style="padding:8px 10px;text-align:right;">Line Total</th>
+                  <th style="padding:8px;text-align:center;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="pos-items-tbody">
+                <!-- Rendered dynamically via CounterTools -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Totals Panel -->
+          <div class="pos-totals-panel">
+            <div class="pos-total-row">
+              <span style="font-size:13.5px;color:#64748B;">Subtotal:</span>
               <span id="pos-subtotal" style="font-size:14px;font-weight:700;">LKR 0.00</span>
             </div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:8px;border-top:1px dashed #CBD5E1;padding-top:8px;">
-              <span style="font-size:18px;font-weight:900;color:#0F172A;">Grand Total:</span>
-              <span id="pos-grand-total" style="font-size:22px;font-weight:900;color:#2563EB;">LKR 0.00</span>
+            <div class="pos-total-row" id="pos-discount-row" style="display:none;color:#B91C1C;">
+              <span style="font-size:13px;" id="pos-discount-label">Discount (0%):</span>
+              <span id="pos-discount-amt" style="font-size:13.5px;font-weight:700;">-LKR 0.00</span>
             </div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:12px;">
-              <span style="font-size:14px;font-weight:700;color:#10B981;">Change Due:</span>
-              <span id="pos-change-due" style="font-size:16px;font-weight:900;color:#10B981;">LKR 0.00</span>
+            <div class="pos-grand-total-row">
+              <span class="label">Grand Total:</span>
+              <span id="pos-grand-total" class="amount">LKR 0.00</span>
             </div>
-            <button onclick="CounterTools.printReceipt()" class="btn-print-action" style="width:100%;justify-content:center;padding:10px;">
-              🖨️ Print Customer Receipt
+            <div class="pos-total-row">
+              <span style="font-size:13.5px;color:#64748B;">Cash Tendered:</span>
+              <span id="pos-tendered-display" style="font-size:14px;font-weight:700;">LKR 1,000.00</span>
+            </div>
+            <div class="pos-change-row positive" id="pos-change-row">
+              <span style="font-size:14.5px;font-weight:700;">Change Due (ඉතිරි මුදල):</span>
+              <span id="pos-change-due" class="amount">LKR 0.00</span>
+            </div>
+
+            <!-- Complete Bill Action -->
+            <button onclick="CounterTools.printReceipt()" class="btn-print-action" style="width:100%;justify-content:center;padding:12px;font-size:15px;margin-top:6px;gap:10px;">
+              <span>🖨️</span>
+              <span>Complete &amp; Print Customer Receipt</span>
+              <span class="kbd-shortcut-light">Ctrl + Enter</span>
             </button>
           </div>
         </div>
@@ -792,6 +898,164 @@
       </div>
     </div>
   </div>
+
+  <!-- =============================================================
+       MODAL 5: INTERACTIVE KEYBOARD SHORTCUTS CHEAT SHEET (F1 / ?)
+       ============================================================= -->
+  <div class="modal-overlay" id="shortcuts-modal">
+    <div class="modal-dialog" style="max-width:620px;">
+      <div class="modal-header">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:22px;">⌨️</span>
+          <div>
+            <h3 style="margin:0;font-size:16px;">Interactive Keyboard Shortcuts</h3>
+            <span style="font-size:11.5px;color:#64748B;">Click any shortcut row to jump directly to that module or action</span>
+          </div>
+        </div>
+        <button class="btn-close-modal">✕</button>
+      </div>
+      <div class="modal-body" style="padding:16px 20px;max-height:450px;overflow-y:auto;">
+        <!-- Navigation Section -->
+        <div class="shortcut-category-header">Navigation &amp; Views</div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-nic'); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>🪪</span>
+            <span>Switch to Smart NIC &amp; License Cloner</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>F2</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-stickers'); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>🏷️</span>
+            <span>Switch to School Name Sticker Studio</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>F3</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-passport'); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>📷</span>
+            <span>Switch to Passport &amp; Visa Photo Studio</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>F4</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-pos'); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>🧾</span>
+            <span>Switch to Counter POS Fast Billing</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>F8</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-gov'); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>📋</span>
+            <span>Switch to Sri Lanka Gov Applications</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>F6</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-edu'); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>📚</span>
+            <span>Switch to Student Assets &amp; Exam Papers</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>F7</kbd></div>
+        </div>
+
+        <!-- Global Actions -->
+        <div class="shortcut-category-header">Global Actions &amp; Tools</div>
+        <div class="shortcut-interactive-row" onclick="App.showModal('command-palette-modal');">
+          <div class="shortcut-action-desc">
+            <span>🔍</span>
+            <span>Open Quick Search / Command Palette</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>Ctrl</kbd> + <kbd>K</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="document.getElementById('btn-global-print').click();">
+          <div class="shortcut-action-desc">
+            <span>🖨️</span>
+            <span>1-Click Print 100% Scale A4</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>Ctrl</kbd> + <kbd>P</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>✕</span>
+            <span>Close Any Dialog / Modal / Palette</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>Esc</kbd></div>
+        </div>
+
+        <!-- Counter POS Section -->
+        <div class="shortcut-category-header">Counter POS Billing Shortcuts</div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-pos'); CounterTools.addItemByShortcut('1'); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>📄</span>
+            <span>Quick Add: A4 B&amp;W Photocopy (LKR 10)</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>1</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-pos'); CounterTools.addItemByShortcut('2'); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>📄</span>
+            <span>Quick Add: A4 B&amp;W Double Side (LKR 15)</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>2</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-pos'); CounterTools.addItemByShortcut('3'); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>🎨</span>
+            <span>Quick Add: Color Print A4 (LKR 50)</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>3</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-pos'); CounterTools.addItemByShortcut('4'); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>🛡️</span>
+            <span>Quick Add: NIC Laminating (LKR 60)</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>4</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-pos'); CounterTools.addItemByShortcut('5'); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>📑</span>
+            <span>Quick Add: A4 Laminating (LKR 120)</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>5</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-pos'); CounterTools.addItemByShortcut('6'); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>📒</span>
+            <span>Quick Add: Spiral Binding (LKR 180)</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>6</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-pos'); CounterTools.printReceipt(); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>🧾</span>
+            <span>Complete Sale &amp; Print Thermal Receipt</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>Ctrl</kbd> + <kbd>Enter</kbd></div>
+        </div>
+        <div class="shortcut-interactive-row" onclick="App.switchView('view-pos'); CounterTools.clearBill(); App.closeAllModals();">
+          <div class="shortcut-action-desc">
+            <span>🗑️</span>
+            <span>Clear Current Bill Cart</span>
+          </div>
+          <div class="shortcut-key-combo"><kbd>Alt</kbd> + <kbd>C</kbd></div>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content:space-between;">
+        <span style="font-size:12px;color:#64748B;">Tip: Press <kbd class="kbd-shortcut">?</kbd> anywhere to open</span>
+        <button class="btn-print-action btn-close-modal">Understood</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Shortcut Helper Trigger -->
+  <button id="floating-shortcut-pill" class="floating-shortcut-pill" title="Open Interactive Shortcuts Cheat Sheet (? / F1)">
+    <span class="icon">⌨️</span>
+    <span class="label">Shortcuts</span>
+    <span class="kbd">?</span>
+  </button>
 
   <!-- Toast Notification Container -->
   <div class="toast-container" id="toast-container"></div>

@@ -2,6 +2,9 @@
    PothHalaPro - Core Screen & UI Stylesheet
    ========================================================================== */
 
+/* Sinhala & Cross-Device Typography Import */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@300;400;500;600;700;800;900&display=swap');
+
 :root {
   --primary: #2563EB;
   --primary-hover: #1D4ED8;
@@ -23,6 +26,11 @@
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
   --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.04);
   --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.05);
+
+  /* Typography Stacks: Priority for Sinhala Native & Web Rendering */
+  --font-sinhala: "Noto Sans Sinhala", "Iskoola Pota", "Nirmala UI", "Sinhala Sangam MN", "FMAbhaya", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Sinhala", "Iskoola Pota", "Nirmala UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 * {
@@ -32,12 +40,38 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Sinhala", sans-serif;
+  font-family: var(--font-sinhala);
   background-color: var(--bg-main);
   color: var(--text-main);
   min-height: 100vh;
   display: flex;
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1;
+  line-height: 1.5;
+}
+
+/* Sinhala Typography Optimization: Prevents Vowel Modifier & Ispilla / Papilla Clipping */
+.sinhala-text, [lang="si"], .si-text {
+  font-family: var(--font-sinhala);
+  line-height: 1.58;
+  letter-spacing: 0.01em;
+}
+
+.sinhala-heading {
+  font-family: var(--font-sinhala);
+  line-height: 1.45;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.sinhala-subtext {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  display: block;
 }
 
 /* -------------------------------------------------------------
@@ -874,3 +908,599 @@ input:checked + .toggle-slider:before {
 .toast.success { border-left: 4px solid var(--success); }
 .toast.error { border-left: 4px solid var(--danger); }
 .toast.info { border-left: 4px solid var(--primary); }
+
+/* ==========================================================================
+   TOUCHSCREEN COUNTER POS SUITE ENHANCEMENTS
+   ========================================================================== */
+
+/* Category Filter Tabs for Touch Devices */
+.pos-cat-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 14px;
+  -webkit-overflow-scrolling: touch;
+}
+.pos-cat-tabs::-webkit-scrollbar {
+  height: 4px;
+}
+.pos-cat-tabs::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+.pos-cat-pill {
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: #FFFFFF;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: all 0.15s ease;
+  touch-action: manipulation;
+}
+.pos-cat-pill:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.pos-cat-pill.active {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+  box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+}
+
+/* Touchscreen Item Quick-Add Grid */
+.pos-touch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.pos-touch-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 82px;
+  padding: 10px 12px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  touch-action: manipulation;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+.pos-touch-card:hover {
+  border-color: var(--primary);
+  background: #F8FAFC;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.pos-touch-card:active {
+  transform: scale(0.96);
+  background: #EFF6FF;
+  border-color: var(--primary);
+}
+.pos-touch-card .item-shortcut {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 9.5px;
+  font-weight: 800;
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  color: #475569;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+}
+.pos-touch-card .item-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.35;
+  margin-right: 18px;
+}
+.pos-touch-card .item-si {
+  font-size: 11px;
+  color: #64748B;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+.pos-touch-card .item-price {
+  font-size: 13.5px;
+  font-weight: 900;
+  color: var(--primary);
+  margin-top: 6px;
+}
+
+/* Quick Cash Tender Grid */
+.pos-tender-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.btn-tender-quick {
+  padding: 9px 4px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #F8FAFC;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  color: #1E293B;
+  transition: all 0.12s;
+  user-select: none;
+  touch-action: manipulation;
+}
+.btn-tender-quick:hover {
+  background: #EFF6FF;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.btn-tender-quick:active {
+  transform: scale(0.95);
+  background: #DBEAFE;
+}
+
+/* Payment Mode Selector */
+.pos-pay-modes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.btn-pay-mode {
+  padding: 8px 6px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  background: #FFFFFF;
+  cursor: pointer;
+  text-align: center;
+  color: var(--text-muted);
+  transition: all 0.12s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  touch-action: manipulation;
+  user-select: none;
+}
+.btn-pay-mode.active {
+  background: #EFF6FF;
+  border-color: var(--primary);
+  color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+/* Touchscreen Numpad for Kiosks & Counter PCs */
+.pos-numpad-container {
+  margin-top: 10px;
+  background: #F8FAFC;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+}
+.pos-numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.btn-numpad {
+  height: 42px;
+  font-size: 16px;
+  font-weight: 800;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  color: #0F172A;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: all 0.1s;
+  touch-action: manipulation;
+}
+.btn-numpad:hover {
+  background: #F1F5F9;
+  border-color: var(--primary);
+}
+.btn-numpad:active {
+  background: #E2E8F0;
+  transform: scale(0.94);
+}
+.btn-numpad.action-btn {
+  background: #F1F5F9;
+  font-size: 13px;
+}
+
+/* Touch Quantity & Delete Buttons in POS Cart */
+.btn-qty-touch {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
+  background: #F8FAFC;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  user-select: none;
+  transition: all 0.1s;
+}
+.btn-qty-touch:hover {
+  background: #EFF6FF;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.btn-qty-touch:active {
+  background: #DBEAFE;
+  transform: scale(0.92);
+}
+
+.btn-del-touch {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid #FECACA;
+  background: #FEF2F2;
+  color: #EF4444;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.1s;
+  touch-action: manipulation;
+}
+.btn-del-touch:hover {
+  background: #FEE2E2;
+}
+.btn-del-touch:active {
+  transform: scale(0.92);
+}
+
+/* High-Contrast POS Totals Panel */
+.pos-totals-panel {
+  margin-top: 16px;
+  padding: 16px;
+  background: #F8FAFC;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+}
+.pos-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.pos-grand-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1.5px dashed #CBD5E1;
+  border-bottom: 1.5px dashed #CBD5E1;
+  margin: 8px 0;
+}
+.pos-grand-total-row .label {
+  font-size: 17px;
+  font-weight: 900;
+  color: #0F172A;
+}
+.pos-grand-total-row .amount {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--primary);
+}
+.pos-change-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+.pos-change-row.positive .amount {
+  color: var(--success);
+  font-size: 18px;
+  font-weight: 900;
+}
+.pos-change-row.deficit .amount {
+  color: var(--danger);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+/* Receipt Width Format Toggle (58mm vs 80mm) */
+.receipt-format-toggle {
+  display: flex;
+  gap: 4px;
+  background: #F1F5F9;
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  border: 1px solid var(--border);
+}
+.btn-receipt-format {
+  background: transparent;
+  border: none;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.12s;
+}
+.btn-receipt-format.active {
+  background: #FFFFFF;
+  color: var(--primary);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+/* ==========================================================================
+   INTERACTIVE KEYBOARD SHORTCUTS & HINTS
+   ========================================================================== */
+
+/* Badges & Tags */
+.nav-shortcut-badge {
+  margin-left: auto;
+  font-size: 10px;
+  color: #94A3B8;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.kbd-shortcut-light {
+  background: rgba(255,255,255,0.22);
+  border: 1px solid rgba(255,255,255,0.35);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+}
+
+.btn-shortcuts-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #F8FAFC;
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-shortcuts-hint:hover {
+  background: #EFF6FF;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Floating Shortcut Helper Pill */
+.floating-shortcut-pill {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #0F172A;
+  color: #FFFFFF;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 8px 14px;
+  border-radius: 30px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  touch-action: manipulation;
+  user-select: none;
+}
+.floating-shortcut-pill:hover {
+  transform: translateY(-2px);
+  background: #1E293B;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+}
+.floating-shortcut-pill:active {
+  transform: scale(0.95);
+}
+.floating-shortcut-pill .kbd {
+  background: rgba(255,255,255,0.2);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+}
+
+/* Shortcuts Cheat Sheet Modal Content */
+.shortcut-category-header {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  margin-top: 14px;
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.shortcut-category-header:first-child {
+  margin-top: 0;
+}
+
+.shortcut-interactive-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.12s;
+  user-select: none;
+}
+.shortcut-interactive-row:hover {
+  background: #EFF6FF;
+}
+.shortcut-interactive-row .shortcut-action-desc {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.shortcut-interactive-row .shortcut-key-combo {
+  display: flex;
+  gap: 4px;
+}
+.shortcut-key-combo kbd {
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #1E293B;
+  font-family: var(--font-mono);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+
+/* ==========================================================================
+   RESPONSIVE MOBILE & TABLET LAYOUTS
+   ========================================================================== */
+
+/* Mobile Hamburger Toggle */
+.btn-sidebar-toggle {
+  display: none;
+  background: #F8FAFC;
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-main);
+  margin-right: 8px;
+  touch-action: manipulation;
+}
+.btn-sidebar-toggle:hover {
+  background: #E2E8F0;
+}
+
+/* Mobile Off-Canvas Backdrop */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15,23,42,0.6);
+  backdrop-filter: blur(2px);
+  z-index: 45;
+  transition: opacity 0.25s ease;
+}
+.sidebar-backdrop.active {
+  display: block;
+}
+
+@media (max-width: 960px) {
+  .btn-sidebar-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #app-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 50;
+    box-shadow: 6px 0 24px rgba(0,0,0,0.3);
+  }
+  #app-sidebar.open {
+    transform: translateX(0);
+  }
+  .studio-layout {
+    grid-template-columns: 1fr !important;
+  }
+  #view-pos .studio-layout {
+    grid-template-columns: 1fr !important;
+  }
+  .header-right {
+    gap: 8px;
+  }
+  .demo-timer-badge {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  #app-header {
+    padding: 0 12px;
+    height: 54px;
+  }
+  .btn-quick-search span:first-child {
+    display: none;
+  }
+  .btn-quick-search::before {
+    content: "🔍";
+    font-size: 14px;
+  }
+  .btn-shortcuts-hint span:first-child {
+    display: none;
+  }
+  .btn-shortcuts-hint::before {
+    content: "⌨️";
+    font-size: 14px;
+  }
+  .btn-print-action span:nth-child(2) {
+    display: none;
+  }
+  .view-container {
+    padding: 12px;
+  }
+  .view-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .pos-touch-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .floating-shortcut-pill {
+    bottom: 14px;
+    right: 14px;
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}

@@ -97,6 +97,25 @@ const App = (() => {
       });
     });
 
+    // Mobile sidebar hamburger toggle & backdrop
+    const btnToggle = document.getElementById('btn-sidebar-toggle');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    const sidebar = document.getElementById('app-sidebar');
+
+    if (btnToggle && sidebar) {
+      btnToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        if (backdrop) backdrop.classList.toggle('active');
+      });
+    }
+
+    if (backdrop && sidebar) {
+      backdrop.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        backdrop.classList.remove('active');
+      });
+    }
+
     // Global 1-Click Print Button in Header
     const btnPrint = document.getElementById('btn-global-print');
     if (btnPrint) {
@@ -105,6 +124,8 @@ const App = (() => {
           NicCloner.triggerPrint();
         } else if (currentView === 'view-stickers' && window.StickerStudio) {
           StickerStudio.triggerPrint();
+        } else if (currentView === 'view-pos' && window.CounterTools) {
+          CounterTools.printReceipt();
         } else {
           window.print();
         }
@@ -122,6 +143,12 @@ const App = (() => {
     if (targetEl) targetEl.classList.add('active');
     if (navItem) navItem.classList.add('active');
     currentView = viewId;
+
+    // Close mobile drawer if open
+    const sidebar = document.getElementById('app-sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    if (sidebar) sidebar.classList.remove('open');
+    if (backdrop) backdrop.classList.remove('active');
 
     // Trigger canvas/sheet update for current view
     if (viewId === 'view-nic' && window.NicCloner) {
@@ -171,7 +198,7 @@ const App = (() => {
   }
 
   // -------------------------------------------------------------
-  // CTRL + K COMMAND PALETTE
+  // CTRL + K COMMAND PALETTE & GLOBAL SHORTCUTS
   // -------------------------------------------------------------
   function setupCommandPalette() {
     const modal = document.getElementById('command-palette-modal');
@@ -191,12 +218,109 @@ const App = (() => {
     if (btnTrigger) btnTrigger.addEventListener('click', openPalette);
 
     window.addEventListener('keydown', (e) => {
+      const isInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName);
+
+      // Ctrl + K: Command Palette
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         openPalette();
+        return;
       }
+
+      // Escape: Close all modals & drawers
       if (e.key === 'Escape') {
         closeAllModals();
+        const sidebar = document.getElementById('app-sidebar');
+        const backdrop = document.getElementById('sidebar-backdrop');
+        if (sidebar) sidebar.classList.remove('open');
+        if (backdrop) backdrop.classList.remove('active');
+        return;
+      }
+
+      // Ctrl + Enter: POS Complete & Print Receipt
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        if (currentView === 'view-pos' && window.CounterTools) {
+          e.preventDefault();
+          CounterTools.printReceipt();
+          return;
+        }
+      }
+
+      // Alt + C: Clear POS Cart
+      if (e.altKey && e.key.toLowerCase() === 'c') {
+        if (currentView === 'view-pos' && window.CounterTools) {
+          e.preventDefault();
+          CounterTools.clearBill();
+          return;
+        }
+      }
+
+      // Alt + E: Exact Cash Tender
+      if (e.altKey && e.key.toLowerCase() === 'e') {
+        if (currentView === 'view-pos') {
+          e.preventDefault();
+          document.querySelector('[data-tender="exact"]')?.click();
+          return;
+        }
+      }
+
+      // Alt + T: Quick +1000 Cash Tender
+      if (e.altKey && e.key.toLowerCase() === 't') {
+        if (currentView === 'view-pos') {
+          e.preventDefault();
+          document.querySelector('[data-tender="add1000"]')?.click();
+          return;
+        }
+      }
+
+      // Alt + Q: Focus Custom Item Name
+      if (e.altKey && e.key.toLowerCase() === 'q') {
+        if (currentView === 'view-pos') {
+          e.preventDefault();
+          document.getElementById('pos-custom-name')?.focus();
+          return;
+        }
+      }
+
+      // If typing in input, ignore single-key & F-keys
+      if (isInput) return;
+
+      // ? or F1: Show Interactive Keyboard Shortcuts Cheat Sheet
+      if (e.key === '?' || e.key === 'F1') {
+        e.preventDefault();
+        const shortcutsModal = document.getElementById('shortcuts-modal');
+        if (shortcutsModal?.classList.contains('active')) {
+          closeAllModals();
+        } else {
+          showModal('shortcuts-modal');
+        }
+        return;
+      }
+
+      // F-Keys Navigation
+      if (e.key === 'F2') {
+        e.preventDefault();
+        switchView('view-nic');
+      } else if (e.key === 'F3') {
+        e.preventDefault();
+        switchView('view-stickers');
+      } else if (e.key === 'F4') {
+        e.preventDefault();
+        switchView('view-passport');
+      } else if (e.key === 'F8') {
+        e.preventDefault();
+        switchView('view-pos');
+      } else if (e.key === 'F6') {
+        e.preventDefault();
+        switchView('view-gov');
+      } else if (e.key === 'F7') {
+        e.preventDefault();
+        switchView('view-edu');
+      }
+
+      // Quick-add items 1-6 in POS view
+      if (currentView === 'view-pos' && window.CounterTools && ['1', '2', '3', '4', '5', '6'].includes(e.key)) {
+        CounterTools.addItemByShortcut(e.key);
       }
     });
 
@@ -305,6 +429,17 @@ const App = (() => {
         if (output) output.value = newCode;
         showToast('Generated cryptographically verified lifetime activation key!', 'success');
       });
+    }
+
+    // Shortcuts Cheat Sheet Modal triggers
+    const btnShortcuts = document.getElementById('btn-shortcuts-hint');
+    if (btnShortcuts) {
+      btnShortcuts.addEventListener('click', () => showModal('shortcuts-modal'));
+    }
+
+    const btnFloatingShortcuts = document.getElementById('floating-shortcut-pill');
+    if (btnFloatingShortcuts) {
+      btnFloatingShortcuts.addEventListener('click', () => showModal('shortcuts-modal'));
     }
   }
 
