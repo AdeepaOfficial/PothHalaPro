@@ -94,3 +94,10 @@ jobs:
             fi
           done
           echo "All vector cartoon assets verified."
+
+      - name: Run Automated QA Test Suites
+        run: |
+          if [ -f "tests/test_runner.js" ]; then
+            node tests/test_runner.js
+            echo "All automated QA test suites passed."
+          fi
