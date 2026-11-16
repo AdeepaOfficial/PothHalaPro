@@ -176,7 +176,7 @@ const LicenseManager = (() => {
     licenseDetails = null;
   }
 
-  async function activate(shopName, ownerPhone, code) {
+  function activate(shopName, ownerPhone, code) {
     const result = verifyActivationCode(code);
     if (!result.valid) {
       return { success: false, message: result.reason };
@@ -204,13 +204,17 @@ const LicenseManager = (() => {
       }
     } catch (e) {}
 
-    // 2. IndexedDB via StorageManager for durable offline persistence
+    // 2. IndexedDB via StorageManager for durable offline persistence (background save)
     if (typeof window !== 'undefined' && window.StorageManager) {
       try {
-        await window.StorageManager.saveLicense(licenseData);
-        await window.StorageManager.saveFingerprint(deviceFingerprint, {
-          shopName: licenseData.shopName,
-          phone: licenseData.ownerPhone
+        Promise.all([
+          window.StorageManager.saveLicense(licenseData),
+          window.StorageManager.saveFingerprint(deviceFingerprint, {
+            shopName: licenseData.shopName,
+            phone: licenseData.ownerPhone
+          })
+        ]).catch((idbErr) => {
+          console.warn('[LicenseManager] IndexedDB activation persist warning:', idbErr);
         });
       } catch (idbErr) {
         console.warn('[LicenseManager] IndexedDB activation persist warning:', idbErr);

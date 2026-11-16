@@ -597,7 +597,6 @@ const CounterTools = (() => {
       window.print();
     }, 150);
   }
-  }
 
   return {
     initPassportStudio,
