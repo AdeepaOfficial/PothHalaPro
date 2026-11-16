@@ -144,6 +144,9 @@
           <button id="btn-load-sample-nic" class="btn-slot-tool" style="background:#EFF6FF;color:#2563EB;border-color:#BFDBFE;padding:8px 14px;font-size:13px;">
             📄 Load Specimen Document
           </button>
+          <button onclick="NicCloner.exportA4HighResPng()" class="btn-slot-tool" style="background:#F0FDF4;color:#16A34A;border-color:#BBF7D0;padding:8px 14px;font-size:13px;margin-left:6px;">
+            🖼️ Export 300 DPI Sheet
+          </button>
         </div>
       </div>
 
@@ -315,7 +318,18 @@
         <div class="controls-card">
           <!-- Student Details -->
           <div class="controls-section">
-            <div class="section-label">1. Student Information</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <div class="section-label" style="margin-bottom:0;">1. Student Information</div>
+              <button type="button" onclick="StickerStudio.saveCurrentStudentToStorage()" class="btn-slot-tool" style="font-size:11px;padding:3px 8px;color:#2563EB;border-color:#BFDBFE;background:#EFF6FF;">
+                💾 Save to Roster
+              </button>
+            </div>
+            <!-- Saved Students Selector from IndexedDB -->
+            <div class="form-group" style="margin-bottom:8px;">
+              <select id="sticker-saved-students-select" onchange="StickerStudio.selectSavedStudent(this.value)" class="form-control" style="font-size:12px;padding:5px 8px;background:#F8FAFC;">
+                <option value="">-- Load Saved Student Profile --</option>
+              </select>
+            </div>
             <div class="form-group">
               <label>Student Name (නම):</label>
               <input type="text" id="sticker-student-name" class="form-control" value="කවීෂා සෙනෙවිරත්න">
@@ -450,6 +464,11 @@
           <div class="preview-toolbar">
             <div class="preview-title-badge">
               <span>🏷️ 8-Sticker A4 Sheet Live Preview (90 × 45 mm each)</span>
+            </div>
+            <div>
+              <button type="button" onclick="StickerStudio.exportA4SheetPng()" class="btn-slot-tool" style="background:#F0FDF4;color:#16A34A;border-color:#BBF7D0;padding:4px 10px;font-size:12px;">
+                🖼️ Export 300 DPI PNG
+              </button>
             </div>
           </div>
           <div class="a4-viewport-wrapper">
@@ -762,6 +781,7 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Application Scripts -->
+  <script src="./js/storage.js"></script>
   <script src="./js/license.js"></script>
   <script src="./js/nic-cloner.js"></script>
   <script src="./js/sticker-studio.js"></script>

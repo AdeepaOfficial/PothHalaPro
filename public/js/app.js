@@ -28,12 +28,18 @@ const App = (() => {
   ];
 
   function init() {
+    // 0. Initialize IndexedDB Offline Storage Manager
+    if (window.StorageManager && typeof window.StorageManager.init === 'function') {
+      window.StorageManager.init().catch(console.warn);
+    }
+
     registerServiceWorker();
     setupNavigation();
     setupCommandPalette();
     setupZoomControls();
     setupModals();
     setupLanguageToggle();
+    setupNetworkSyncListeners();
     setupThemeSwitcher();
 
     // Initialize Child Modules
@@ -48,6 +54,23 @@ const App = (() => {
 
     // Switch to initial view
     switchView('view-nic');
+  }
+
+  function setupNetworkSyncListeners() {
+    window.addEventListener('online', () => {
+      showToast('Online connection restored. Synchronizing offline data...', 'info');
+      if (window.StorageManager && typeof window.StorageManager.syncPendingData === 'function') {
+        window.StorageManager.syncPendingData().then((res) => {
+          if (res && res.syncedCount > 0) {
+            showToast(`Synchronized ${res.syncedCount} offline record(s) to server`, 'success');
+          }
+        }).catch(console.warn);
+      }
+    });
+
+    window.addEventListener('offline', () => {
+      showToast('Offline mode active. All licenses, receipts & stickers saved to IndexedDB.', 'warning');
+    });
   }
 
   // -------------------------------------------------------------

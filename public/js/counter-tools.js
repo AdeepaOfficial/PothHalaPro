@@ -283,7 +283,38 @@ const CounterTools = (() => {
     }
   }
 
-  function printReceipt() {
+  async function printReceipt() {
+    if (billItems && billItems.length > 0) {
+      const subtotal = billItems.reduce((acc, cur) => acc + (cur.price * cur.qty), 0);
+      const discountAmt = subtotal * (discountPercent / 100);
+      const grandTotal = Math.max(0, subtotal - discountAmt);
+      const changeDue = Math.max(0, cashTendered - grandTotal);
+      const license = window.LicenseManager?.getLicenseDetails();
+
+      const receiptRecord = {
+        timestamp: Date.now(),
+        items: JSON.parse(JSON.stringify(billItems)),
+        subtotal: subtotal,
+        discountPercent: discountPercent,
+        discountAmt: discountAmt,
+        grandTotal: grandTotal,
+        cashTendered: cashTendered,
+        changeDue: changeDue,
+        paymentMethod: 'Cash',
+        shopName: license?.shopName || 'POTHA HALA & COMMUNICATION STUDIO'
+      };
+
+      if (window.StorageManager && typeof window.StorageManager.saveReceipt === 'function') {
+        try {
+          const saved = await window.StorageManager.saveReceipt(receiptRecord);
+          if (window.App && window.App.showToast) {
+            window.App.showToast(`Receipt #${saved.receiptNumber} recorded in offline IndexedDB ledger`, 'success');
+          }
+        } catch (e) {
+          console.warn('[CounterTools] Error saving receipt to IndexedDB:', e);
+        }
+      }
+    }
     window.print();
   }
 
